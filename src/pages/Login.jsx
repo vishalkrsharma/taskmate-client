@@ -1,6 +1,7 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import useUser from '../hooks/useUser';
+import { Form, FormButton, FormContainer, Input, Promt, PromtLink } from '../styles/FormStyles';
+import { PrimaryHeader, SecondaryHeader } from '../styles/styles';
 
 function Login() {
   const [userInfo, setUserInfo] = useState({
@@ -24,30 +25,31 @@ function Login() {
   };
 
   return (
-    <>
-      <h1>login</h1>
-      <form onSubmit={handleSubmit}>
-        <input
+    <FormContainer>
+      <PrimaryHeader>TaskMate</PrimaryHeader>
+      <SecondaryHeader>Login</SecondaryHeader>
+      <Form>
+        <Input
           type='text'
-          placeholder='username'
+          placeholder='Username'
           name='username'
           value={userInfo.username}
           onChange={handleChange}
         />
 
-        <input
+        <Input
           type='password'
-          placeholder='password'
+          placeholder='Password'
           name='password'
           value={userInfo.password}
           onChange={handleChange}
         />
-        <input
-          type='submit'
-          value='Login'
-        />
-      </form>
-    </>
+        <FormButton onClick={handleSubmit}>Login</FormButton>
+      </Form>
+      <Promt>
+        Don't have an account? &nbsp;<PromtLink to='/register'>Login</PromtLink>
+      </Promt>
+    </FormContainer>
   );
 }
 

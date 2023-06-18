@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import useUser from '../hooks/useUser';
+import { PrimaryHeader, SecondaryHeader } from '../styles/styles';
+import { Form, FormButton, FormContainer, Input, Promt, PromtLink } from '../styles/FormStyles';
 
 function Register() {
   const [userInfo, setUserInfo] = useState({
@@ -23,36 +25,38 @@ function Register() {
   };
 
   return (
-    <>
-      <h1>register</h1>
-      <form onSubmit={handleSubmit}>
-        <input
+    <FormContainer>
+      <PrimaryHeader>TaskMate</PrimaryHeader>
+      <SecondaryHeader>Register</SecondaryHeader>
+      <Form>
+        <Input
           type='text'
-          placeholder='username'
+          placeholder='Username'
           name='username'
           value={userInfo.username}
           onChange={handleChange}
         />
-        <input
+        <Input
           text='email'
-          placeholder='email'
+          placeholder='Email'
           name='email'
           value={userInfo.email}
           onChange={handleChange}
         />
-        <input
+        <Input
           type='password'
-          placeholder='password'
+          placeholder='Password'
           name='password'
           value={userInfo.password}
           onChange={handleChange}
         />
-        <input
-          type='submit'
-          value='Register'
-        />
-      </form>
-    </>
+        <FormButton onClick={handleSubmit}>Register</FormButton>
+      </Form>
+      <Promt>
+        Already have an account?&nbsp;
+        <PromtLink to='/login'>Login</PromtLink>
+      </Promt>
+    </FormContainer>
   );
 }
 
