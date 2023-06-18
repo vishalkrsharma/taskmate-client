@@ -1,5 +1,5 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import useUser from '../hooks/useUser';
 
 function Register() {
   const [userInfo, setUserInfo] = useState({
@@ -7,6 +7,7 @@ function Register() {
     email: '',
     password: '',
   });
+  const { register } = useUser();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -18,7 +19,7 @@ function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const res = await axios.post('/api/register', userInfo);
+    register(userInfo);
   };
 
   return (

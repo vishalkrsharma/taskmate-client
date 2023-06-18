@@ -8,7 +8,6 @@ import useUserContext from './hooks/useUserContext';
 
 function App() {
   const { user } = useUserContext();
-  console.log(user);
 
   axios.defaults.baseURL = 'http://localhost:5000';
 

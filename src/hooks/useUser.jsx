@@ -8,15 +8,27 @@ function useUser() {
 
   const login = async (userInfo) => {
     try {
-      const res = await axios.post('/api/login', userInfo);
-      const { data } = res;
+      const res = await axios.post('/api/user/login', userInfo);
+      const { data, status } = res;
       localStorage.setItem('user', JSON.stringify(data));
-      console.log(data);
-      dispatch({ type: 'LOGIN', payload: data });
-      navigate('/');
-      return data;
+      if (status === 201) {
+        dispatch({ type: 'LOGIN', payload: data });
+        navigate('/');
+      }
     } catch (err) {
-      return err;
+      console.log(err);
+    }
+  };
+
+  const register = async (userInfo) => {
+    try {
+      const res = await axios.post('/api/user/register', userInfo);
+      const { status } = res;
+      if (status === 201) {
+        navigate('/login');
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -26,7 +38,7 @@ function useUser() {
     navigate('/login');
   };
 
-  return { login, logout };
+  return { login, register, logout };
 }
 
 export default useUser;
