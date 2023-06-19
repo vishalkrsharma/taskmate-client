@@ -19,19 +19,6 @@ const Form = styled.form`
   margin: 4rem;
 `;
 
-const Input = styled.input`
-  padding: 1rem;
-  border: 2px solid #51a0fb;
-  border-radius: 1rem;
-`;
-
-const FormButton = styled.button`
-  background-color: #3893fa;
-  color: #ffffff;
-  padding: 0.75rem 2rem;
-  border-radius: 1rem;
-`;
-
 const Promt = styled.div`
   font-size: 1.5rem;
 `;
@@ -41,4 +28,4 @@ const PromtLink = styled(Link)`
   text-decoration: underline;
 `;
 
-export { FormContainer, Form, Input, FormButton, Promt, PromtLink };
+export { FormContainer, Form, Promt, PromtLink };

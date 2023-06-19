@@ -1,17 +1,12 @@
 import React from 'react';
-import useUser from '../hooks/useUser';
+import Navbar from '../components/Navbar';
+import TaskForm from '../components/TaskForm';
 
 function Home() {
-  const { logout } = useUser();
-
-  const handleLogout = () => {
-    logout();
-  };
-
   return (
     <>
-      Home
-      <button onClick={handleLogout}>logout</button>
+      <Navbar />
+      <TaskForm />
     </>
   );
 }

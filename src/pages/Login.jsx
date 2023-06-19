@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useUser from '../hooks/useUser';
-import { Form, FormButton, FormContainer, Input, Promt, PromtLink } from '../styles/FormStyles';
-import { PrimaryHeader, SecondaryHeader } from '../styles/styles';
+import { Form, FormContainer, Promt, PromtLink } from '../styles/FormStyles';
+import { Input, PrimaryHeader, SecondaryHeader, Button } from '../styles/styles';
 
 function Login() {
   const [userInfo, setUserInfo] = useState({
@@ -44,7 +44,7 @@ function Login() {
           value={userInfo.password}
           onChange={handleChange}
         />
-        <FormButton onClick={handleSubmit}>Login</FormButton>
+        <Button onClick={handleSubmit}>Login</Button>
       </Form>
       <Promt>
         Don't have an account? &nbsp;<PromtLink to='/register'>Login</PromtLink>
