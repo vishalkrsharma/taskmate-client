@@ -9,7 +9,7 @@ import useUserContext from './hooks/useUserContext';
 function App() {
   const { user } = useUserContext();
 
-  axios.defaults.baseURL = 'http://localhost:5000';
+  axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
 
   return (
     <BrowserRouter>
