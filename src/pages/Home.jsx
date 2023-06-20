@@ -13,7 +13,7 @@ function Home() {
       setTasks(ts);
     }
     getTs();
-  }, []);
+  }, [tasks]);
 
   return (
     <>
