@@ -11,7 +11,7 @@ function useUser() {
       const res = await axios.post('/api/user/login', userInfo);
       const { data, status } = res;
       localStorage.setItem('user', JSON.stringify(data));
-      if (status === 201) {
+      if (status === 200) {
         dispatch({ type: 'LOGIN', payload: data });
         navigate('/');
       }

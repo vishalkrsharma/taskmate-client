@@ -71,6 +71,11 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
+  table, tr, th, td {
+      border: 1px solid black;
+  border-collapse: collapse;
+  }
+
   @font-face {
   font-family: 'Poppins';
   font-weight: 400;

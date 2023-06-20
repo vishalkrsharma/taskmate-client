@@ -123,7 +123,6 @@ function TaskForm() {
             />
             <Select
               name='status'
-              placeholder='Status'
               value={taskInfo.status}
               onChange={handleChange}
             >
@@ -133,7 +132,6 @@ function TaskForm() {
                 }}
                 value=''
                 disabled
-                selected
               >
                 Select Status
               </option>
