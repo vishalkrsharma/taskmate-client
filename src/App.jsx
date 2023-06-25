@@ -16,11 +16,11 @@ function App() {
       <Routes>
         <Route
           path='/register'
-          element={!user ? <Register /> : <Navigate to='/' />}
+          element={Object.keys(user).length === 0 ? <Register /> : <Navigate to='/' />}
         />
         <Route
           path='/login'
-          element={!user ? <Login /> : <Navigate to='/' />}
+          element={Object.keys(user).length === 0 ? <Login /> : <Navigate to='/' />}
         />
         <Route element={<PrivateRoute />}>
           <Route

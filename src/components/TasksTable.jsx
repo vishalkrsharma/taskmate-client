@@ -2,9 +2,12 @@ import React from 'react';
 import { styled } from 'styled-components';
 import { BiTrash, BiPencil } from 'react-icons/bi';
 import useTask from '../hooks/useTask';
+import useTaskContext from '../hooks/useTaskContext';
 
-function TasksTable({ tasks }) {
+function TasksTable() {
   const { editTask, deleteTask } = useTask();
+
+  const { tasks } = useTaskContext();
 
   const editTsk = (_id) => {
     editTask(_id);

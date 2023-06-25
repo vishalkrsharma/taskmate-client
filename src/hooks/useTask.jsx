@@ -1,8 +1,10 @@
 import axios from 'axios';
 import useUserContext from './useUserContext';
+import useTaskcontext from './useTaskContext';
 
 function useTask() {
   const { user } = useUserContext();
+  const { tasks, setTasks } = useTaskcontext();
 
   const getTasks = async () => {
     try {
@@ -17,7 +19,10 @@ function useTask() {
   const newTask = async (taskInfo) => {
     try {
       const res = await axios.post('/api/task/newtask', { taskInfo, user });
-      console.log(res);
+      const { data, status } = res;
+      if (status === 201) {
+        setTasks((prev) => [...prev, data.task]);
+      }
     } catch (err) {
       console.log(err);
     }

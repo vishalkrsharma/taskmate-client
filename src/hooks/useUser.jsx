@@ -4,7 +4,7 @@ import useUserContext from './useUserContext';
 
 function useUser() {
   const navigate = useNavigate();
-  const { user, dispatch } = useUserContext();
+  const { user, setUser } = useUserContext();
 
   const login = async (userInfo) => {
     try {
@@ -12,7 +12,8 @@ function useUser() {
       const { data, status } = res;
       localStorage.setItem('user', JSON.stringify(data));
       if (status === 200) {
-        dispatch({ type: 'LOGIN', payload: data });
+        setUser(data);
+        localStorage.setItem('user', JSON.stringify(user));
         navigate('/');
       }
     } catch (err) {
@@ -34,7 +35,7 @@ function useUser() {
 
   const logout = () => {
     localStorage.removeItem('user');
-    dispatch({ type: 'LOGOUT' });
+    setUser({});
     navigate('/login');
   };
 

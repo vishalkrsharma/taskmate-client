@@ -1,32 +1,14 @@
-import { createContext, useEffect, useReducer, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 export const UserContext = createContext({});
 
-export const userReducer = (state, action) => {
-  switch (action.type) {
-    case 'LOGIN': {
-      return { user: action.payload };
-    }
-    case 'LOGOUT': {
-      return { user: null };
-    }
-    default: {
-      return state;
-    }
-  }
-};
-
 export function UserContextProvider({ children }) {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || {});
   useEffect(() => {
-    if (user) {
-      dispatch({ type: 'LOGIN', payload: user });
-    }
-  }, []);
+    localStorage.setItem('user', JSON.stringify(user));
+  }, [user]);
 
-  const [state, dispatch] = useReducer(userReducer, {
-    user: user,
-  });
+  console.log(user);
 
-  return <UserContext.Provider value={{ ...state, dispatch }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
 }
