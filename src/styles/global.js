@@ -80,7 +80,7 @@ const GlobalStyle = createGlobalStyle`
   font-family: 'Poppins';
   font-weight: 400;
   src:url('/src/fonts/poppins-regular-webfont.woff2') format('woff2'),
-      url('/src/fonts/poppins-regular-webfont.woff')format('woff');
+      url('/src/fonts/poppins-regular-webfont.woff') format('woff');
 }
 `;
 

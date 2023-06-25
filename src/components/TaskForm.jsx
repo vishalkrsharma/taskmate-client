@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import { Button, Input, SecondaryHeader } from '../styles/styles';
 import Modal from 'react-modal';
 import useTask from '../hooks/useTask';
+import { BiPlus } from 'react-icons/bi';
 
 const customStyles = {
   content: {
@@ -58,7 +59,10 @@ function TaskForm() {
   return (
     <>
       <div>
-        <button onClick={openModal}>Open Modal</button>
+        <NewTaskButton onClick={openModal}>
+          New Task
+          <BiPlus color='white' />
+        </NewTaskButton>
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
@@ -178,4 +182,18 @@ const Select = styled.select`
   border: 2px solid #51a0fb;
   border-radius: 1rem;
   background-color: #ffffff;
+`;
+
+const NewTaskButton = styled.button`
+  font-size: 1.75rem;
+  background-color: #3893fa;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
 `;

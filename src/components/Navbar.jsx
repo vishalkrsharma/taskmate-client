@@ -24,10 +24,11 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1rem;
+  padding: 2rem;
 `;
 
 const NavBrand = styled(PrimaryHeader)`
   color: #3893fa;
   font-size: 3.5rem;
+  letter-spacing: 0.75rem;
 `;
