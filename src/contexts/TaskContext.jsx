@@ -1,11 +1,13 @@
 import { createContext, useEffect, useState } from 'react';
 import useTask from '../hooks/useTask';
+import useUserContext from '../hooks/useUserContext';
 
 export const TaskContext = createContext([]);
 
 export const TaskContextProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const { getTasks } = useTask();
+  const { user } = useUserContext();
 
   useEffect(() => {
     async function getTs() {
@@ -13,7 +15,9 @@ export const TaskContextProvider = ({ children }) => {
       setTasks(ts);
       localStorage.setItem('user', JSON.stringify(tasks));
     }
-    getTs();
+    if (Object.keys(user).length !== 0) {
+      getTs();
+    }
   }, []);
 
   useEffect(() => {
