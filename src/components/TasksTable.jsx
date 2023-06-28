@@ -3,6 +3,8 @@ import { styled } from 'styled-components';
 import { BiTrash, BiPencil } from 'react-icons/bi';
 import useTask from '../hooks/useTask';
 import useTaskContext from '../hooks/useTaskContext';
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 
 function TasksTable() {
   const { editTask, deleteTask } = useTask();

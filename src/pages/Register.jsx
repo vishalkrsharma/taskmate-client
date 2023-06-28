@@ -50,7 +50,7 @@ function Register() {
           value={userInfo.password}
           onChange={handleChange}
         />
-        <FormButton onClick={handleSubmit}>Register</FormButton>
+        <Button onClick={handleSubmit}>Register</Button>
       </Form>
       <Promt>
         Already have an account?&nbsp;

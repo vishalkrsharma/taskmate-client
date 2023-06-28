@@ -47,7 +47,7 @@ function Login() {
         <Button onClick={handleSubmit}>Login</Button>
       </Form>
       <Promt>
-        Don't have an account? &nbsp;<PromtLink to='/register'>Login</PromtLink>
+        Don't have an account? &nbsp;<PromtLink to='/register'>Register</PromtLink>
       </Promt>
     </FormContainer>
   );
