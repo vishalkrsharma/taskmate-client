@@ -1,10 +1,13 @@
-import axios, { AxiosHeaders } from 'axios';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useUserContext from './useUserContext';
+import useTaskcontext from './useTaskContext';
+import useTask from './useTask';
 
 function useUser() {
   const navigate = useNavigate();
   const { user, setUser } = useUserContext();
+  const { setTasks } = useTaskcontext();
 
   const login = async (userInfo) => {
     try {
@@ -13,7 +16,6 @@ function useUser() {
       localStorage.setItem('user', JSON.stringify(data));
       if (status === 200) {
         setUser(data);
-        localStorage.setItem('user', JSON.stringify(user));
         navigate('/');
       }
     } catch (err) {
@@ -36,6 +38,7 @@ function useUser() {
   const logout = () => {
     localStorage.removeItem('user');
     setUser({});
+    setTasks([]);
     navigate('/login');
   };
 

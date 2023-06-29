@@ -10,6 +10,7 @@ function useTask() {
     try {
       const res = await axios.post('/api/task/gettasks', { user });
       const { tasks } = res.data;
+      setTasks(tasks);
       return tasks;
     } catch (err) {
       console.log(err);

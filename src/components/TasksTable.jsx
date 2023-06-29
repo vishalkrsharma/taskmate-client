@@ -34,27 +34,28 @@ function TasksTable() {
         </tr>
       </thead>
       <tbody>
-        {tasks.map((task, idx) => {
-          const { _id, category, clientName, job, startDate, endDate, status, remarks } = task;
-          return (
-            <tr key={idx}>
-              <td style={{ textAlign: 'right' }}>{idx + 1}</td>
-              <td>{category}</td>
-              <td>{clientName}</td>
-              <td>{job}</td>
-              <td>{startDate.substring(0, startDate.indexOf('T'))}</td>
-              <td>{endDate.substring(0, endDate.indexOf('T'))}</td>
-              <td>{status}</td>
-              <td>{remarks}</td>
-              <OperationsTd>
-                {/* <BiPencil />
+        {tasks &&
+          tasks.map((task, idx) => {
+            const { _id, category, clientName, job, startDate, endDate, status, remarks } = task;
+            return (
+              <tr key={idx}>
+                <td style={{ textAlign: 'right' }}>{idx + 1}</td>
+                <td>{category}</td>
+                <td>{clientName}</td>
+                <td>{job}</td>
+                <td>{startDate.substring(0, startDate.indexOf('T'))}</td>
+                <td>{endDate.substring(0, endDate.indexOf('T'))}</td>
+                <td>{status}</td>
+                <td>{remarks}</td>
+                <OperationsTd>
+                  {/* <BiPencil />
                 <BiTrash /> */}
-                <button onClick={() => editTsk(_id)}>Edit</button>
-                <button onClick={() => deleteTsk(_id)}>Delete</button>
-              </OperationsTd>
-            </tr>
-          );
-        })}
+                  <button onClick={() => editTsk(_id)}>Edit</button>
+                  <button onClick={() => deleteTsk(_id)}>Delete</button>
+                </OperationsTd>
+              </tr>
+            );
+          })}
       </tbody>
     </Table>
   );
