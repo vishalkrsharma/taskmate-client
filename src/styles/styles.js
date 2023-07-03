@@ -22,4 +22,27 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-export { PrimaryHeader, SecondaryHeader, Input, Button };
+const Form = styled.form`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+`;
+
+const TextArea = styled.textarea`
+  padding: 1rem;
+  border: 2px solid #51a0fb;
+  border-radius: 1rem;
+  resize: none;
+`;
+
+const Select = styled.select`
+  padding: 1rem;
+  border: 2px solid #51a0fb;
+  border-radius: 1rem;
+  background-color: #ffffff;
+`;
+
+export { PrimaryHeader, SecondaryHeader, Input, Button, Form, TextArea, Select };

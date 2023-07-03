@@ -72,8 +72,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   table, tr, th, td {
-      border: 1px solid black;
-  border-collapse: collapse;
+    border: 1px solid black;
+    border-collapse: collapse;
   }
 
   @font-face {

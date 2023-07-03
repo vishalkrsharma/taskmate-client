@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
-import { Button, Input, SecondaryHeader } from '../styles/styles';
+import { Button, Input, SecondaryHeader, Form, TextArea, Select } from '../styles/styles';
 import Modal from 'react-modal';
 import useTask from '../hooks/useTask';
 import { BiPlus } from 'react-icons/bi';
@@ -160,29 +160,6 @@ function TaskForm() {
 }
 
 export default TaskForm;
-
-const Form = styled.form`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  flex-direction: row;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-`;
-
-const TextArea = styled.textarea`
-  padding: 1rem;
-  border: 2px solid #51a0fb;
-  border-radius: 1rem;
-  resize: none;
-`;
-
-const Select = styled.select`
-  padding: 1rem;
-  border: 2px solid #51a0fb;
-  border-radius: 1rem;
-  background-color: #ffffff;
-`;
 
 const NewTaskButton = styled.button`
   font-size: 1.75rem;
