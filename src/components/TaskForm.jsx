@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
-import { Button, Input, SecondaryHeader, Form, TextArea, Select } from '../styles/styles';
+import { Button, Input, SecondaryHeader, Form, TextArea, Select, CloseButton } from '../styles/styles';
 import Modal from 'react-modal';
 import useTask from '../hooks/useTask';
 import { BiPlus } from 'react-icons/bi';
+import { FaTimes } from 'react-icons/fa';
 
 const customStyles = {
   content: {
@@ -76,7 +77,9 @@ function TaskForm() {
             }}
           >
             <SecondaryHeader>New Task</SecondaryHeader>
-            <button onClick={closeModal}>close</button>
+            <CloseButton onClick={closeModal}>
+              <FaTimes size={20} />
+            </CloseButton>
           </div>
           <Form>
             <Input

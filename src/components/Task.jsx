@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { styled } from 'styled-components';
 import useTask from '../hooks/useTask';
-import { Button, Input, SecondaryHeader, Form, TextArea, Select } from '../styles/styles';
+import { Button, Input, SecondaryHeader, Form, TextArea, Select, CloseButton } from '../styles/styles';
+import { FaTimes } from 'react-icons/fa';
 
 const customStyles = {
   content: {
@@ -94,7 +95,9 @@ function Task({ task, idx }) {
       >
         <ModalHeader>
           <ModalHeading>New Task</ModalHeading>
-          <button onClick={closeEditModal}>close</button>
+          <CloseButton onClick={closeEditModal}>
+            <FaTimes />
+          </CloseButton>
         </ModalHeader>
         <Form>
           <Input

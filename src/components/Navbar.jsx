@@ -1,7 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { PrimaryHeader } from '../styles/styles';
+import { PrimaryHeader, CloseButton } from '../styles/styles';
 import useUser from '../hooks/useUser';
+import { BiLogOut } from 'react-icons/bi';
 
 function Navbar() {
   const { logout } = useUser();
@@ -12,7 +13,9 @@ function Navbar() {
   return (
     <Nav>
       <NavBrand>TaskMate</NavBrand>
-      <button onClick={handleLogout}>logout</button>
+      <CloseButton onClick={handleLogout}>
+        <BiLogOut size={25} />
+      </CloseButton>
     </Nav>
   );
 }

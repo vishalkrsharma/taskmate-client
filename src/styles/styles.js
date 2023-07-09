@@ -45,4 +45,9 @@ const Select = styled.select`
   background-color: #ffffff;
 `;
 
-export { PrimaryHeader, SecondaryHeader, Input, Button, Form, TextArea, Select };
+const CloseButton = styled.button`
+  background-color: transparent;
+  aspect-ratio: 1;
+`;
+
+export { PrimaryHeader, SecondaryHeader, Input, Button, Form, TextArea, Select, CloseButton };
