@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import colors from './colors';
 
 const GlobalStyle = createGlobalStyle`
   *,
@@ -15,13 +14,14 @@ const GlobalStyle = createGlobalStyle`
     outline: transparent;
     border: none;
     color: #00050a;
+    font-family: 'Poppins';
+
   }
 
   html {
     font-size: 62.5%;
     scroll-behavior: smooth;
     overflow: hidden;
-    font-family: 'Poppins';
   }
 
   html,
@@ -77,11 +77,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   @font-face {
-  font-family: 'Poppins';
-  font-weight: 400;
-  src:url('/src/fonts/poppins-regular-webfont.woff2') format('woff2'),
-      url('/src/fonts/poppins-regular-webfont.woff') format('woff');
-}
+    font-family: 'Poppins';
+    font-weight: 400;
+    src:url('/src/fonts/poppins-regular-webfont.woff2') format('woff2'),
+        url('/src/fonts/poppins-regular-webfont.woff') format('woff');
+  }
 `;
 
 export default GlobalStyle;
