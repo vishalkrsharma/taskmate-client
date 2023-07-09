@@ -1,6 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+
+  @font-face {
+    font-family: 'Poppins';
+    font-weight: 400;
+    src:url('/src/fonts/poppins-regular-webfont.woff2') format('woff2'),
+        url('/src/fonts/poppins-regular-webfont.woff') format('woff');
+  }
+
   *,
   *::before,
   *::after {
@@ -76,12 +84,7 @@ const GlobalStyle = createGlobalStyle`
     border-collapse: collapse;
   }
 
-  @font-face {
-    font-family: 'Poppins';
-    font-weight: 400;
-    src:url('/src/fonts/poppins-regular-webfont.woff2') format('woff2'),
-        url('/src/fonts/poppins-regular-webfont.woff') format('woff');
-  }
+
 `;
 
 export default GlobalStyle;
