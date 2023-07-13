@@ -10,11 +10,16 @@ const LoginRegisterContainer = styled.div`
   gap: 4rem;
 `;
 
-const Logo = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+const PrimaryHeader = styled.div`
+  font-size: 4rem;
+  letter-spacing: 0.5rem;
+`;
+
+const Logo = styled(PrimaryHeader)`
+  background-image: linear-gradient(to right, var(--primary), var(--accent));
+  background-clip: text;
+  color: transparent;
+  font-weight: 600;
 `;
 
 const TabContainer = styled.div`
@@ -23,6 +28,13 @@ const TabContainer = styled.div`
   justify-content: flex-start;
   gap: 2rem;
   align-items: center;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 `;
 
 const TabButton = styled.button`
@@ -38,29 +50,15 @@ const TabButton = styled.button`
   }
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-`;
-
-const TabForm = styled.div``;
-
-const PrimaryHeader = styled.div`
-  font-size: 4rem;
-  letter-spacing: 0.5rem;
-`;
-
 const SecondaryHeader = styled.div`
   font-size: 2.75rem;
 `;
 
 const Input = styled.input`
   padding: 1rem;
-  border: 2px solid var(--tiber);
-  background-color: var(--bright);
-  color: var(--background);
+  border: 2px solid transparent;
+  background-color: var(--hover);
+  color: var(--text);
   border-radius: 1rem;
   &:focus {
     border: 2px solid var(--algae);
@@ -92,16 +90,25 @@ const Form = styled.form`
 
 const TextArea = styled.textarea`
   padding: 1rem;
-  border: 2px solid #51a0fb;
+  border: 2px solid var(--tiber);
   border-radius: 1rem;
   resize: none;
+  background-color: var(--hover);
+  color: var(--text);
+  &:focus {
+    border: 2px solid var(--algae);
+  }
 `;
 
 const Select = styled.select`
   padding: 1rem;
-  border: 2px solid #51a0fb;
+  border: 2px solid var(--tiber);
   border-radius: 1rem;
-  background-color: #ffffff;
+  background-color: var(--hover);
+  color: var(--text);
+  &:focus {
+    border: 2px solid var(--algae);
+  }
 `;
 
 const CloseButton = styled.button`
@@ -113,7 +120,6 @@ export {
   LoginRegisterContainer,
   Logo,
   ButtonContainer,
-  TabForm,
   PrimaryHeader,
   TabContainer,
   SecondaryHeader,

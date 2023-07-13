@@ -8,7 +8,6 @@ const GlobalStyle = createGlobalStyle`
     --primary: #19e5e6;
     --secondary: #07213c;
     --accent: #27e787;
-    --bright: #fefafa;
     --hover: #363636;
     --tiber: #093232;
     --algae: #75f0b3;
