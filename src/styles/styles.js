@@ -75,6 +75,7 @@ const Button = styled.button`
   transition: all 0.2s;
   &:hover {
     background-color: var(--primary);
+    background-image: linear-gradient(to right, var(--primary), var(--accent));
     color: var(--background);
   }
 `;
