@@ -13,8 +13,8 @@ function useUser() {
     try {
       const res = await axios.post('/api/user/login', userInfo);
       const { data, status } = res;
-      localStorage.setItem('user', JSON.stringify(data));
       if (status === 200) {
+        localStorage.setItem('user', JSON.stringify(data));
         setUser(data);
         navigate('/');
       }
@@ -39,7 +39,6 @@ function useUser() {
     localStorage.removeItem('user');
     setUser({});
     setTasks([]);
-    navigate('/login');
   };
 
   return { login, register, logout };

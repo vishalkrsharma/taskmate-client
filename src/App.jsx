@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Register from './pages/Register';
-import Login from './pages/Login';
 import PrivateRoute from './utils/PrivateRoute';
 import Home from './pages/Home';
 import useUserContext from './hooks/useUserContext';
+import LoginOrRegister from './pages/LoginOrRegister';
 
 function App() {
   const { user } = useUserContext();
@@ -15,12 +14,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path='/register'
-          element={Object.keys(user).length === 0 ? <Register /> : <Navigate to='/' />}
-        />
-        <Route
-          path='/login'
-          element={Object.keys(user).length === 0 ? <Login /> : <Navigate to='/' />}
+          path='/'
+          element={Object.keys(user).length === 0 ? <LoginOrRegister /> : <PrivateRoute />}
         />
         <Route element={<PrivateRoute />}>
           <Route

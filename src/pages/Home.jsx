@@ -6,7 +6,7 @@ import useTask from '../hooks/useTask';
 import useUserContext from '../hooks/useUserContext';
 import useTaskcontext from '../hooks/useTaskContext';
 
-function Home() {
+export default function Home() {
   const { getTasks } = useTask();
   const { user } = useUserContext();
   const { tasks, setTasks } = useTaskcontext();
@@ -26,5 +26,3 @@ function Home() {
     </>
   );
 }
-
-export default Home;

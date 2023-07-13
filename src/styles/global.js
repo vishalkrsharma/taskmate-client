@@ -2,6 +2,18 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
 
+  :root {
+    --text: #fefafa;
+    --background: #2b2b2b;
+    --primary: #19e5e6;
+    --secondary: #07213c;
+    --accent: #27e787;
+    --bright: #fefafa;
+    --hover: #363636;
+    --tiber: #093232;
+    --algae: #75f0b3;
+  }
+
   @font-face {
     font-family: 'Poppins';
     font-weight: 400;
@@ -21,9 +33,9 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     outline: transparent;
     border: none;
-    color: #00050a;
+    color: var(--text);
     font-family: 'Poppins';
-
+    box-sizing: border-box;
   }
 
   html {
@@ -35,7 +47,7 @@ const GlobalStyle = createGlobalStyle`
   html,
   body {
     height: 100vh;
-    background-color: #f0f7ff;
+    background-color: var(--background);
   }
 
   body {
