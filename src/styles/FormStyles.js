@@ -24,6 +24,7 @@ const Promt = styled.div`
 
 const PromtLink = styled.button`
   color: var(--algae);
+  font-weight: 600;
   background-color: transparent;
   text-decoration: underline;
 `;

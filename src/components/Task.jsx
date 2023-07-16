@@ -2,7 +2,19 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { styled } from 'styled-components';
 import useTask from '../hooks/useTask';
-import { Button, Input, SecondaryHeader, Form, TextArea, Select, CloseButton } from '../styles/styles';
+import {
+  Button,
+  Input,
+  SecondaryHeader,
+  Form,
+  TextArea,
+  Select,
+  CloseButton,
+  ModalStyles,
+  ModalHeader,
+  ModalButton,
+  ModalButtonContainer,
+} from '../styles/styles';
 import { FaTimes } from 'react-icons/fa';
 
 const customStyles = {
@@ -16,28 +28,28 @@ const customStyles = {
   },
 };
 
-function Task({ task, idx }) {
+function Task({ task }) {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const { _id, category, clientName, job, startDate, endDate, status, remarks } = task;
   const { editTask, deleteTask } = useTask();
   const [editedTask, setEditedTask] = useState(task);
 
-  function openEditModal() {
+  const openEditModal = () => {
     setEditModalIsOpen(true);
-  }
+  };
 
-  function openDeleteModal() {
+  const openDeleteModal = () => {
     setDeleteModalIsOpen(true);
-  }
+  };
 
-  function closeEditModal() {
+  const closeEditModal = () => {
     setEditModalIsOpen(false);
-  }
+  };
 
-  function closeDeleteModal() {
+  const closeDeleteModal = () => {
     setDeleteModalIsOpen(false);
-  }
+  };
 
   const editTsk = (_id) => {
     openEditModal();
@@ -65,38 +77,28 @@ function Task({ task, idx }) {
   };
 
   return (
-    <tr>
-      <td style={{ textAlign: 'right' }}>{idx + 1}</td>
-      <td>{category}</td>
-      <td>{clientName}</td>
-      <td>{job}</td>
-      <td>{startDate}</td>
-      <td>{endDate}</td>
-      <td>{status}</td>
-      <td>{remarks}</td>
-      <OperationsTd>
-        {/* <BiPencil />
-        <BiTrash /> */}
-        <button
-          onClick={() => {
-            editTsk();
-          }}
-        >
-          Edit
-        </button>
-        <button onClick={() => deleteTsk()}>Delete</button>
-      </OperationsTd>
-
+    <TaskContainer>
+      <Job>Job: {job}</Job>
+      <div>Category: {category.length > 20 ? category.substring(0, 20) + '...' : category}</div>
+      <div>Client Name: {clientName.length > 20 ? clientName.substring(0, 20) + '...' : clientName}</div>
+      <div>
+        Duration: {startDate} to {endDate}
+      </div>
+      <div>Remarks: {remarks.length > 20 ? remarks.substring(0, 20) + '...' : remarks}</div>
+      <div>Status: {status}</div>
+      <ButtonContainer>
+        <Button onClick={openEditModal}>Edit</Button>
+        <Button onClick={openDeleteModal}>Delete</Button>
+      </ButtonContainer>
       <Modal
         isOpen={editModalIsOpen}
         onRequestClose={closeEditModal}
-        style={customStyles}
-        contentLabel='Example Modal'
+        style={ModalStyles}
       >
         <ModalHeader>
-          <ModalHeading>New Task</ModalHeading>
+          <SecondaryHeader>New Task</SecondaryHeader>
           <CloseButton onClick={closeEditModal}>
-            <FaTimes />
+            <FaTimes size={20} />
           </CloseButton>
         </ModalHeader>
         <Form>
@@ -165,58 +167,48 @@ function Task({ task, idx }) {
             <option value='Completed'>Completed</option>
           </Select>
         </Form>
-        <Container>
+        <ModalButtonContainer>
           <ModalButton onClick={handleEditSubmit}>Edit</ModalButton>
           <ModalButton onClick={closeEditModal}>Cancel</ModalButton>
-        </Container>
+        </ModalButtonContainer>
       </Modal>
       <Modal
         isOpen={deleteModalIsOpen}
         onRequestClose={closeDeleteModal}
-        style={customStyles}
+        style={ModalStyles}
       >
         <ModalHeader>
-          <ModalHeading>Delete Task?</ModalHeading>
+          <SecondaryHeader>Delete Task?</SecondaryHeader>
         </ModalHeader>
-        <Container>
+        <ModalButtonContainer>
           <ModalButton onClick={handleDeleteSubmit}>Yes</ModalButton>
           <ModalButton onClick={closeDeleteModal}>No</ModalButton>
-        </Container>
+        </ModalButtonContainer>
       </Modal>
-    </tr>
+    </TaskContainer>
   );
 }
 
 export default Task;
 
-const OperationsTd = styled.td`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  border: none;
-  height: 100%;
-  border-collapse: collapse;
+const TaskContainer = styled.div`
+  font-size: 1.75rem;
+  border: 2px solid var(--accent);
+  padding: 1rem;
+  border-radius: 1rem;
+  width: 35rem;
+  overflow-x: hidden;
 `;
 
-const Container = styled.div`
+const Job = styled.div`
+  font-size: 1.9rem;
+  font-weight: 600;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 1.5rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 2rem;
-`;
-
-const ModalHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 5rem;
-`;
-
-const ModalHeading = styled(SecondaryHeader)`
-  margin-bottom: 1rem;
-`;
-
-const ModalButton = styled(Button)`
-  font-size: 1.5rem;
-  float: right;
+  gap: 1rem;
 `;

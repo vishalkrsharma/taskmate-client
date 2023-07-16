@@ -58,6 +58,7 @@ const Nav = styled.nav`
 `;
 
 const AvatarButton = styled.div`
+  cursor: pointer;
   background-color: transparent;
   position: relative;
 `;
@@ -73,15 +74,17 @@ const Menu = styled.div`
   right: 0;
   padding: 1rem;
   border-radius: 1rem;
-  box-shadow: 2.5px 5px 5px hsl(0deg 0% 0% / 0.42);
+  /* box-shadow: 2.5px 5px 5px hsl(0deg 0% 0% / 0.42); */
+  box-shadow: 0px 0px 2px 1px black;
 `;
 
 const MenuButton = styled.button`
+  cursor: pointer;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 2rem;
-  font-size: 2rem;
+  font-size: 1.75rem;
   text-align: left;
   background-color: transparent;
   color: var(--text);

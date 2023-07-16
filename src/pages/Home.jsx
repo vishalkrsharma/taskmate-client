@@ -5,24 +5,28 @@ import TasksTable from '../components/TasksTable';
 import useTask from '../hooks/useTask';
 import useUserContext from '../hooks/useUserContext';
 import useTaskcontext from '../hooks/useTaskContext';
+import TaskView from '../components/Main';
+import Main from '../components/Main';
 
 export default function Home() {
   const { getTasks } = useTask();
-  const { user } = useUserContext();
-  const { tasks, setTasks } = useTaskcontext();
   useEffect(() => {
     async function getTs() {
       await getTasks();
     }
-
     getTs();
   }, []);
 
   return (
     <>
       <Navbar />
+      {/* <div style={{ margin: '2rem', display: 'flex', alignItems: 'stretch', gap: '2rem' }}>
+        <Sidebar />
+        <TaskView />
+        {/* <TasksTable /> 
+      </div> */}
+      <Main />
       <TaskForm />
-      <TasksTable />
     </>
   );
 }
