@@ -26,13 +26,14 @@ function TasksTable() {
           </tr>
         </thead>
         <tbody>
-          {tasks.map((task, idx) => (
-            <Task
-              task={task}
-              idx={idx}
-              key={idx}
-            />
-          ))}
+          {tasks &&
+            tasks.map((task, idx) => (
+              <Task
+                task={task}
+                idx={idx}
+                key={idx}
+              />
+            ))}
         </tbody>
       </Table>
     </>

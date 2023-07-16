@@ -3,7 +3,7 @@ import useUser from '../hooks/useUser';
 import { Form, FormContainer, Promt, PromtLink } from '../styles/FormStyles';
 import { Input, PrimaryHeader, SecondaryHeader, Button } from '../styles/styles';
 
-function Login() {
+function Login({ setActiveTab }) {
   const [userInfo, setUserInfo] = useState({
     username: '',
     password: '',
@@ -21,13 +21,13 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    login(userInfo);
+    if (userInfo.username !== '' && userInfo.password !== '') {
+      login(userInfo);
+    }
   };
 
   return (
     <FormContainer>
-      <PrimaryHeader>TaskMate</PrimaryHeader>
-      <SecondaryHeader>Login</SecondaryHeader>
       <Form>
         <Input
           type='text'
@@ -35,6 +35,7 @@ function Login() {
           name='username'
           value={userInfo.username}
           onChange={handleChange}
+          required
         />
 
         <Input
@@ -43,11 +44,24 @@ function Login() {
           name='password'
           value={userInfo.password}
           onChange={handleChange}
+          required
         />
-        <Button onClick={handleSubmit}>Login</Button>
+        <Button
+          type='submit'
+          onClick={handleSubmit}
+        >
+          Login
+        </Button>
       </Form>
       <Promt>
-        Don't have an account? &nbsp;<PromtLink to='/register'>Register</PromtLink>
+        Don't have an account? &nbsp;
+        <PromtLink
+          onClick={() => {
+            setActiveTab('register');
+          }}
+        >
+          Register
+        </PromtLink>
       </Promt>
     </FormContainer>
   );

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import useUser from '../hooks/useUser';
-import { Input, PrimaryHeader, SecondaryHeader, Button } from '../styles/styles';
+import { Input, Button } from '../styles/styles';
 import { Form, FormContainer, Promt, PromtLink } from '../styles/FormStyles';
 
-function Register() {
+function Register({ setActiveTab }) {
   const [userInfo, setUserInfo] = useState({
     username: '',
     email: '',
@@ -26,8 +26,6 @@ function Register() {
 
   return (
     <FormContainer>
-      <PrimaryHeader>TaskMate</PrimaryHeader>
-      <SecondaryHeader>Register</SecondaryHeader>
       <Form>
         <Input
           type='text'
@@ -54,7 +52,7 @@ function Register() {
       </Form>
       <Promt>
         Already have an account?&nbsp;
-        <PromtLink to='/login'>Login</PromtLink>
+        <PromtLink onClick={() => setActiveTab('login')}>Login</PromtLink>
       </Promt>
     </FormContainer>
   );

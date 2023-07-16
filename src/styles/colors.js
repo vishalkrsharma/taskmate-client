@@ -1,10 +1,10 @@
 function colors() {
   const colors = {
-    primary: '#3893fa',
-    secondary: '#ffffff',
-    text: '#00050a',
-    background: '#f0f7ff',
-    accent: '#51a0fb',
+    text: '#fefafa',
+    background: '#2b2b2b',
+    primary: '#19e5e6',
+    secondary: '#07213c',
+    accent: '#27e787',
   };
 
   return colors;

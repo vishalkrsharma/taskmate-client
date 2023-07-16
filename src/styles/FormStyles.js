@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const FormContainer = styled.div`
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,8 +22,9 @@ const Promt = styled.div`
   font-size: 1.5rem;
 `;
 
-const PromtLink = styled(Link)`
-  color: #51a0fb;
+const PromtLink = styled.button`
+  color: var(--algae);
+  background-color: transparent;
   text-decoration: underline;
 `;
 
