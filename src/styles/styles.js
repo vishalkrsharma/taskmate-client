@@ -2,7 +2,6 @@ import { styled } from 'styled-components';
 
 const LoginRegisterContainer = styled.div`
   height: 100vh;
-  margin-top: 10rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -60,6 +59,7 @@ const Input = styled.input`
   background-color: var(--hover);
   color: var(--text);
   border-radius: 1rem;
+  transition: all 0.2s;
   &:focus {
     border: 2px solid var(--algae);
   }
@@ -73,6 +73,7 @@ const Button = styled.button`
   border-radius: 1rem;
   cursor: pointer;
   transition: all 0.2s;
+  font-weight: 600;
   &:hover {
     background-color: var(--primary);
     background-image: linear-gradient(to right, var(--primary), var(--accent));
@@ -87,15 +88,19 @@ const Form = styled.form`
   flex-direction: row;
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const TextArea = styled.textarea`
   padding: 1rem;
-  border: 2px solid var(--tiber);
+  border: 2px solid transparent;
   border-radius: 1rem;
   resize: none;
   background-color: var(--hover);
   color: var(--text);
+  transition: all 0.2s;
   &:focus {
     border: 2px solid var(--algae);
   }
@@ -103,7 +108,7 @@ const TextArea = styled.textarea`
 
 const Select = styled.select`
   padding: 1rem;
-  border: 2px solid var(--tiber);
+  border: 2px solid transparent;
   border-radius: 1rem;
   background-color: var(--hover);
   color: var(--text);
@@ -115,6 +120,50 @@ const Select = styled.select`
 const CloseButton = styled.button`
   background-color: transparent;
   aspect-ratio: 1;
+`;
+
+const ModalInput = styled(Input)`
+  @media (max-width: 500px) {
+    width: 30rem;
+  }
+`;
+
+const ModalTextArea = styled(TextArea)`
+  @media (max-width: 500px) {
+    width: 30rem;
+  }
+`;
+const ModalStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'var(--background)',
+  },
+};
+
+const ModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5rem;
+  margin-bottom: 1rem;
+  margin-top: -1rem;
+`;
+
+const ModalButton = styled(Button)`
+  font-size: 1.5rem;
+  float: right;
+`;
+
+const ModalButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
 `;
 
 export {
@@ -131,4 +180,10 @@ export {
   Select,
   CloseButton,
   TabButton,
+  ModalStyles,
+  ModalHeader,
+  ModalButtonContainer,
+  ModalButton,
+  ModalInput,
+  ModalTextArea,
 };

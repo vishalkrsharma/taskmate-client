@@ -43,7 +43,6 @@ function TasksTable() {
 export default TasksTable;
 
 const Table = styled.table`
-  margin: 2rem;
   width: calc(100vw - 4rem);
   font-size: 1.5rem;
   border: 1px solid black;

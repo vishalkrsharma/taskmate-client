@@ -8,7 +8,7 @@ export default function LoginOrRegister() {
 
   return (
     <LoginRegisterContainer>
-      <Logo>TaskMate</Logo>
+      <Logo style={{ marginTop: '15rem' }}>TaskMate</Logo>
       <TabContainer>
         <ButtonContainer>
           <TabButton
