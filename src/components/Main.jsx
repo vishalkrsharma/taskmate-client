@@ -11,10 +11,10 @@ export default function Main() {
   const [showTasks, setShowTasks] = useState(tasks);
 
   useEffect(() => {
-    if (isActive === 'all') setShowTasks(tasks);
+    if (isActive === 'All') setShowTasks(tasks);
     else if (isActive === 'Pending') filter();
     else if (isActive === 'Completed') filter();
-    else if (isActive === 'Pending For Payment') filter();
+    else if (isActive === 'Pending for fees') filter();
   }, [tasks, isActive]);
 
   const filter = () => {
@@ -48,19 +48,19 @@ export default function Main() {
         </SidebarButton>
         <SidebarButton
           style={{ width: '22rem', fontSize: '1.75rem' }}
+          selected={isActive === 'Pending for fees'}
+          onClick={() => setIsActive('Pending for fees')}
+        >
+          <FaMoneyBill />
+          Pending for Fees
+        </SidebarButton>
+        <SidebarButton
+          style={{ width: '22rem', fontSize: '1.75rem' }}
           selected={isActive === 'Completed'}
           onClick={() => setIsActive('Completed')}
         >
           <FaCheck />
           Completed
-        </SidebarButton>
-        <SidebarButton
-          style={{ width: '22rem', fontSize: '1.75rem' }}
-          selected={isActive === 'Pending For Payment'}
-          onClick={() => setIsActive('Pending For Payment')}
-        >
-          <FaMoneyBill />
-          Pending for Fees
         </SidebarButton>
       </SidebarContainer>
       <div style={{ margin: '0 auto' }}>

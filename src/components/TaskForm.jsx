@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
-import { styled } from 'styled-components';
 import { Button, Input, SecondaryHeader, Form, TextArea, Select, CloseButton, ModalStyles, ModalHeader } from '../styles/styles';
 import Modal from 'react-modal';
 import useTask from '../hooks/useTask';
 import { FaTimes, FaPlus } from 'react-icons/fa';
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+import { NewTaskButton } from '../styles/TaskFormStyles';
 
 function TaskForm() {
   const [taskInfo, setTaskInfo] = useState({
@@ -28,16 +17,24 @@ function TaskForm() {
   });
 
   const { newTask } = useTask();
-
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  function openModal() {
+  const openModal = () => {
     setIsOpen(true);
-  }
+  };
 
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false);
-  }
+    setTaskInfo({
+      category: '',
+      clientName: '',
+      job: '',
+      startDate: '',
+      endDate: '',
+      status: '',
+      remarks: '',
+    });
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -53,8 +50,6 @@ function TaskForm() {
     closeModal();
     setTaskInfo({ category: '', clientName: '', job: '', startDate: '', endDate: '', status: '', remarks: '' });
   };
-
-  Modal.setAppElement('#root');
 
   return (
     <div>
@@ -134,7 +129,7 @@ function TaskForm() {
               Select Status
             </option>
             <option value='Pending'>Pending</option>
-            <option value='Pending For Payment'>Pending For Payment</option>
+            <option value='Pending for fees'>Pending for fees</option>
             <option value='Completed'>Completed</option>
           </Select>
         </Form>
@@ -153,19 +148,3 @@ function TaskForm() {
 }
 
 export default TaskForm;
-
-const NewTaskButton = styled.button`
-  cursor: pointer;
-  font-size: 1.75rem;
-  font-weight: 600;
-  background-image: linear-gradient(to right, var(--primary), var(--accent));
-  border-radius: 1rem;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  position: absolute;
-  bottom: 2rem;
-  right: 2rem;
-`;

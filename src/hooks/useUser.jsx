@@ -2,11 +2,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useUserContext from './useUserContext';
 import useTaskcontext from './useTaskContext';
-import useTask from './useTask';
 
 function useUser() {
   const navigate = useNavigate();
-  const { user, setUser } = useUserContext();
+  const { setUser } = useUserContext();
   const { setTasks } = useTaskcontext();
 
   const login = async (userInfo) => {

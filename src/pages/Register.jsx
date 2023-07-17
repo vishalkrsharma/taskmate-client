@@ -3,7 +3,7 @@ import useUser from '../hooks/useUser';
 import { Input, Button } from '../styles/styles';
 import { Form, FormContainer, Promt, PromtLink } from '../styles/FormStyles';
 
-function Register({ setActiveTab }) {
+export default function Register({ setActiveTab }) {
   const [userInfo, setUserInfo] = useState({
     username: '',
     email: '',
@@ -57,5 +57,3 @@ function Register({ setActiveTab }) {
     </FormContainer>
   );
 }
-
-export default Register;

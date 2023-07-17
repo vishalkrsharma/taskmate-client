@@ -1,6 +1,4 @@
 import { createContext, useEffect, useState } from 'react';
-import useTask from '../hooks/useTask';
-import useUserContext from '../hooks/useUserContext';
 
 export const TaskContext = createContext([]);
 
