@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-
   :root {
     --text: #fefafa;
     --background: #2b2b2b;
@@ -11,13 +10,6 @@ const GlobalStyle = createGlobalStyle`
     --hover: #363636;
     --tiber: #093232;
     --algae: #75f0b3;
-  }
-
-  @font-face {
-    font-family: 'Poppins';
-    font-weight: 400;
-    src:url('/src/fonts/poppins-regular-webfont.woff2') format('woff2'),
-        url('/src/fonts/poppins-regular-webfont.woff') format('woff');
   }
 
   *,
@@ -33,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
     outline: transparent;
     border: none;
     color: var(--text);
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
   }
 
