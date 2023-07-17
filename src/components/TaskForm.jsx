@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
-import { Button, Input, SecondaryHeader, Form, TextArea, Select, CloseButton, ModalStyles, ModalHeader, ModalInput, ModalTextArea } from '../styles/styles';
+import { Button, Input, SecondaryHeader, Form, TextArea, Select, CloseButton, ModalStyles, ModalHeader } from '../styles/styles';
 import Modal from 'react-modal';
 import useTask from '../hooks/useTask';
 import { FaTimes, FaPlus } from 'react-icons/fa';
@@ -74,34 +74,34 @@ function TaskForm() {
           </CloseButton>
         </ModalHeader>
         <Form>
-          <ModalInput
+          <Input
             type='text'
             name='category'
             placeholder='Category'
             value={taskInfo.category}
             onChange={handleChange}
           />
-          <ModalInput
+          <Input
             type='text'
             name='clientName'
             placeholder='Client Name'
             value={taskInfo.clientName}
             onChange={handleChange}
           />
-          <ModalInput
+          <Input
             type='date'
             name='startDate'
             value={taskInfo.startDate}
             onChange={handleChange}
           />
-          <ModalInput
+          <Input
             type='date'
             name='endDate'
             value={taskInfo.endDate}
             onChange={handleChange}
           />
 
-          <ModalTextArea
+          <TextArea
             cols='40'
             rows='5'
             type='text'
@@ -110,7 +110,7 @@ function TaskForm() {
             value={taskInfo.job}
             onChange={handleChange}
           />
-          <ModalTextArea
+          <TextArea
             cols='40'
             rows='5'
             type='text'
