@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { styled } from 'styled-components';
 import useTask from '../hooks/useTask';
 import {
   Button,
@@ -16,19 +15,9 @@ import {
   ModalButtonContainer,
 } from '../styles/styles';
 import { FaTimes } from 'react-icons/fa';
+import { TaskButtonContainer, TaskContainer } from '../styles/TaskStyles';
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
-
-function Task({ task }) {
+export default function Task({ task }) {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const { _id, category, clientName, job, startDate, endDate, status, remarks } = task;
@@ -45,6 +34,7 @@ function Task({ task }) {
 
   const closeEditModal = () => {
     setEditModalIsOpen(false);
+    setEditedTask(task);
   };
 
   const closeDeleteModal = () => {
@@ -78,7 +68,7 @@ function Task({ task }) {
 
   return (
     <TaskContainer>
-      <Job>Job: {job}</Job>
+      <div>Job: {job.length > 20 ? job.substring(0, 20) + '...' : job}</div>
       <div>Category: {category.length > 20 ? category.substring(0, 20) + '...' : category}</div>
       <div>Client Name: {clientName.length > 20 ? clientName.substring(0, 20) + '...' : clientName}</div>
       <div>
@@ -86,10 +76,10 @@ function Task({ task }) {
       </div>
       <div>Remarks: {remarks.length > 20 ? remarks.substring(0, 20) + '...' : remarks}</div>
       <div>Status: {status}</div>
-      <ButtonContainer>
+      <TaskButtonContainer>
         <Button onClick={openEditModal}>Edit</Button>
         <Button onClick={openDeleteModal}>Delete</Button>
-      </ButtonContainer>
+      </TaskButtonContainer>
       <Modal
         isOpen={editModalIsOpen}
         onRequestClose={closeEditModal}
@@ -188,27 +178,3 @@ function Task({ task }) {
     </TaskContainer>
   );
 }
-
-export default Task;
-
-const TaskContainer = styled.div`
-  font-size: 1.75rem;
-  border: 2px solid var(--accent);
-  padding: 1rem;
-  border-radius: 1rem;
-  width: 35rem;
-  overflow-x: hidden;
-`;
-
-const Job = styled.div`
-  font-size: 1.9rem;
-  font-weight: 600;
-`;
-
-const ButtonContainer = styled.div`
-  margin-top: 1.5rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1rem;
-`;

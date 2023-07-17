@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import useUser from '../hooks/useUser';
 import { Form, FormContainer, Promt, PromtLink } from '../styles/FormStyles';
-import { Input, PrimaryHeader, SecondaryHeader, Button } from '../styles/styles';
+import { Input, Button } from '../styles/styles';
 
-function Login({ setActiveTab }) {
+export default function Login({ setActiveTab }) {
   const [userInfo, setUserInfo] = useState({
     username: '',
     password: '',
@@ -66,5 +66,3 @@ function Login({ setActiveTab }) {
     </FormContainer>
   );
 }
-
-export default Login;

@@ -4,7 +4,7 @@ import useTaskcontext from './useTaskContext';
 
 function useTask() {
   const { user } = useUserContext();
-  const { tasks, setTasks } = useTaskcontext();
+  const { setTasks } = useTaskcontext();
 
   const getTasks = async () => {
     try {
@@ -31,16 +31,7 @@ function useTask() {
 
   const editTask = async (editedTask) => {
     try {
-      const res = await axios.post('/api/task/edittask', { user, task: editedTask });
-      // setTasks((prev) => {
-      //   for (let i = 0; i < prev.length; i++) {
-      //     if (prev[i]._id === editedTask._id) {
-      //       prev[i] = editedTask;
-      //     }
-      //   }
-      //   console.log(prev);
-      //   return prev;
-      // });
+      await axios.post('/api/task/edittask', { user, task: editedTask });
       getTasks();
     } catch (err) {
       console.log(err);
@@ -49,7 +40,7 @@ function useTask() {
 
   const deleteTask = async (_id) => {
     try {
-      const res = await axios.post('/api/task/deletetask', { user, taskId: _id });
+      await axios.post('/api/task/deletetask', { user, taskId: _id });
       getTasks();
     } catch (err) {
       console.log(err);

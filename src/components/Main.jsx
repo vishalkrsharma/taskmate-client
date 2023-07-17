@@ -1,45 +1,71 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TabButton } from '../styles/styles';
 import { styled } from 'styled-components';
-import { FaTimes, FaCheck, FaMoneyBill } from 'react-icons/fa';
+import { FaTasks, FaTimes, FaCheck, FaMoneyBill } from 'react-icons/fa';
 import useTaskcontext from '../hooks/useTaskContext';
 import Task from './Task';
 
 export default function Main() {
   const { tasks } = useTaskcontext();
-  const [isActive, setIsActive] = useState('pending');
+  const [isActive, setIsActive] = useState('All');
+  const [showTasks, setShowTasks] = useState(tasks);
+
+  useEffect(() => {
+    if (isActive === 'All') setShowTasks(tasks);
+    else if (isActive === 'Pending') filter();
+    else if (isActive === 'Completed') filter();
+    else if (isActive === 'Pending for fees') filter();
+  }, [tasks, isActive]);
+
+  const filter = () => {
+    let tsks = [];
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].status === isActive) {
+        tsks.push(tasks[i]);
+      }
+    }
+    setShowTasks(tsks);
+  };
 
   return (
     <MainContainer>
       <SidebarContainer>
         <SidebarButton
           style={{ width: '22rem', fontSize: '1.75rem' }}
-          selected={isActive === 'pending'}
-          onClick={() => setIsActive('pending')}
+          selected={isActive === 'All'}
+          onClick={() => setIsActive('All')}
+        >
+          <FaTasks />
+          All
+        </SidebarButton>
+        <SidebarButton
+          style={{ width: '22rem', fontSize: '1.75rem' }}
+          selected={isActive === 'Pending'}
+          onClick={() => setIsActive('Pending')}
         >
           <FaTimes />
           Pending
         </SidebarButton>
         <SidebarButton
           style={{ width: '22rem', fontSize: '1.75rem' }}
-          selected={isActive === 'completed'}
-          onClick={() => setIsActive('completed')}
-        >
-          <FaCheck />
-          Completed
-        </SidebarButton>
-        <SidebarButton
-          style={{ width: '22rem', fontSize: '1.75rem' }}
-          selected={isActive === 'pfp'}
-          onClick={() => setIsActive('pfp')}
+          selected={isActive === 'Pending for fees'}
+          onClick={() => setIsActive('Pending for fees')}
         >
           <FaMoneyBill />
           Pending for Fees
         </SidebarButton>
+        <SidebarButton
+          style={{ width: '22rem', fontSize: '1.75rem' }}
+          selected={isActive === 'Completed'}
+          onClick={() => setIsActive('Completed')}
+        >
+          <FaCheck />
+          Completed
+        </SidebarButton>
       </SidebarContainer>
       <div style={{ margin: '0 auto' }}>
         <TaskView>
-          {tasks.map((task) => (
+          {showTasks.map((task) => (
             <Task
               task={task}
               key={task._id}

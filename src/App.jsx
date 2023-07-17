@@ -3,9 +3,12 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import PrivateRoute from './utils/PrivateRoute';
 import Home from './pages/Home';
 import useUserContext from './hooks/useUserContext';
+import Modal from 'react-modal';
 import LoginOrRegister from './pages/LoginOrRegister';
 
-function App() {
+Modal.setAppElement('#root');
+
+export default function App() {
   const { user } = useUserContext();
 
   axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
@@ -27,5 +30,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;
