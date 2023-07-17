@@ -63,6 +63,9 @@ const Input = styled.input`
   &:focus {
     border: 2px solid var(--algae);
   }
+  @media (max-width: 500px) {
+    width: 30rem;
+  }
 `;
 
 const Button = styled.button`
@@ -104,6 +107,9 @@ const TextArea = styled.textarea`
   &:focus {
     border: 2px solid var(--algae);
   }
+  @media (max-width: 500px) {
+    width: 30rem;
+  }
 `;
 
 const Select = styled.select`
@@ -122,17 +128,6 @@ const CloseButton = styled.button`
   aspect-ratio: 1;
 `;
 
-const ModalInput = styled(Input)`
-  @media (max-width: 500px) {
-    width: 30rem;
-  }
-`;
-
-const ModalTextArea = styled(TextArea)`
-  @media (max-width: 500px) {
-    width: 30rem;
-  }
-`;
 const ModalStyles = {
   content: {
     top: '50%',
@@ -184,6 +179,4 @@ export {
   ModalHeader,
   ModalButtonContainer,
   ModalButton,
-  ModalInput,
-  ModalTextArea,
 };
