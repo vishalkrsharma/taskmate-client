@@ -68,6 +68,9 @@ const Input = styled.input`
   @media (max-width: 500px) {
     width: 30rem;
   }
+  @media (max-width: 1100px) {
+    width: 40rem;
+  }
 `;
 
 const Button = styled.button`
@@ -93,7 +96,7 @@ const Form = styled.form`
   flex-direction: row;
   margin-bottom: 1rem;
   font-size: 1.5rem;
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
     grid-template-columns: 1fr;
   }
 `;
@@ -113,6 +116,9 @@ const TextArea = styled.textarea`
   @media (max-width: 500px) {
     width: 30rem;
   }
+  @media (max-width: 1100px) {
+    width: 40rem;
+  }
 `;
 
 const Select = styled.select`
@@ -127,6 +133,9 @@ const Select = styled.select`
   }
   @media (max-width: 500px) {
     width: 30rem;
+  }
+  @media (max-width: 1100px) {
+    width: 40rem;
   }
 `;
 
@@ -169,6 +178,12 @@ const ModalButtonContainer = styled.div`
   gap: 2rem;
 `;
 
+const SidebarButtonLabel = styled.div`
+  @media (max-width: 820px) {
+    display: none;
+  }
+`;
+
 export {
   LoginRegisterContainer,
   Logo,
@@ -187,4 +202,5 @@ export {
   ModalHeader,
   ModalButtonContainer,
   ModalButton,
+  SidebarButtonLabel,
 };

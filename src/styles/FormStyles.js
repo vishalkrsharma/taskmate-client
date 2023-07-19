@@ -52,6 +52,9 @@ const UserSettingsButton = styled(Button)`
 
 const FormLabel = styled.label`
   font-size: 1.75rem;
+  @media (max-width: 1000px) {
+    margin: -0.5rem 0;
+  }
 `;
 
 const EditFormElement = styled(FormElement)`

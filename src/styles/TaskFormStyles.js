@@ -11,7 +11,7 @@ const NewTaskButton = styled.button`
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  position: absolute;
+  position: fixed;
   bottom: 2rem;
   right: 2rem;
 `;
