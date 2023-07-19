@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { FormElement } from './FormStyles';
 
 const LoginRegisterContainer = styled.div`
   height: 100vh;
@@ -54,6 +55,7 @@ const SecondaryHeader = styled.div`
 `;
 
 const Input = styled.input`
+  width: 50rem;
   padding: 1rem;
   border: 2px solid transparent;
   background-color: var(--hover);
@@ -97,6 +99,7 @@ const Form = styled.form`
 `;
 
 const TextArea = styled.textarea`
+  width: 50rem;
   padding: 1rem;
   border: 2px solid transparent;
   border-radius: 1rem;
@@ -113,6 +116,7 @@ const TextArea = styled.textarea`
 `;
 
 const Select = styled.select`
+  width: 50rem;
   padding: 1rem;
   border: 2px solid transparent;
   border-radius: 1rem;
@@ -121,9 +125,13 @@ const Select = styled.select`
   &:focus {
     border: 2px solid var(--algae);
   }
+  @media (max-width: 500px) {
+    width: 30rem;
+  }
 `;
 
 const CloseButton = styled.button`
+  cursor: pointer;
   background-color: transparent;
   aspect-ratio: 1;
 `;

@@ -40,7 +40,9 @@ function useUser() {
     setTasks([]);
   };
 
-  return { login, register, logout };
+  const changeUsername = () => {};
+
+  return { login, register, logout, changeUsername };
 }
 
 export default useUser;

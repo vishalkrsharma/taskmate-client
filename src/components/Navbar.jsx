@@ -1,14 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Logo } from '../styles/styles';
+import { Button, CloseButton, Form, Input, Logo, ModalHeader, SecondaryHeader } from '../styles/styles';
 import useUser from '../hooks/useUser';
 import { BiUser, BiLogOut } from 'react-icons/bi';
 import Avatars from './Avatars';
-import { AvatarButton, Menu, Nav } from '../styles/NavbarStyles';
+import { AvatarButton, Menu, MenuButton, Nav } from '../styles/NavbarStyles';
+import Modal from './Modal';
+import { FaTimes } from 'react-icons/fa';
+import { FormElement, FormLabel, UserSettingsButton, UserSettingsForm } from '../styles/FormStyles';
 
 export default function Navbar() {
   const { logout } = useUser();
   const menuRef = useRef();
   const [isOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [newUsername, setNewUsername] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
   useEffect(() => {
     const clickOutside = (e) => {
@@ -22,6 +29,14 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (modalIsOpen === false) {
+      setNewUsername('');
+      setNewEmail('');
+      setNewPassword('');
+    }
+  }, [modalIsOpen]);
+
   return (
     <Nav>
       <Logo>TaskMate</Logo>
@@ -32,7 +47,7 @@ export default function Navbar() {
         <Avatars />
         {isOpen && (
           <Menu>
-            <MenuButton>
+            <MenuButton onClick={() => setModalIsOpen(true)}>
               <BiUser />
               User Settings
             </MenuButton>
@@ -43,6 +58,43 @@ export default function Navbar() {
           </Menu>
         )}
       </AvatarButton>
+      <Modal
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+      >
+        <ModalHeader>
+          <SecondaryHeader>User Settings</SecondaryHeader>
+          <CloseButton onClick={() => setModalIsOpen(false)}>
+            <FaTimes size={20} />
+          </CloseButton>
+        </ModalHeader>
+        <UserSettingsForm>
+          <FormLabel htmlFor='newUsername'>Change User Name</FormLabel>
+          <FormElement>
+            <Input
+              id='newUsername'
+              name='newUsername'
+              value={newUsername}
+              onChange={() => setNewUsername(event.target.value)}
+            />
+            <UserSettingsButton>Submit</UserSettingsButton>
+          </FormElement>
+        </UserSettingsForm>
+        <UserSettingsForm>
+          <FormLabel for='newEmail'>Change Email</FormLabel>
+          <FormElement>
+            <Input id='newEmail' />
+            <UserSettingsButton>Submit</UserSettingsButton>
+          </FormElement>
+        </UserSettingsForm>
+        <UserSettingsForm>
+          <FormLabel htmlFor='newPassword'>Change Password</FormLabel>
+          <FormElement>
+            <Input />
+            <UserSettingsButton>Submit</UserSettingsButton>
+          </FormElement>
+        </UserSettingsForm>
+      </Modal>
     </Nav>
   );
 }
