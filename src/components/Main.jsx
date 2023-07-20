@@ -8,10 +8,10 @@ import Task from './Task';
 export default function Main() {
   const { tasks } = useTaskcontext();
   const [isActive, setIsActive] = useState('All');
-  const [showTasks, setShowTasks] = useState(tasks);
+  const [showTasks, setShowTasks] = useState(tasks || []);
 
   useEffect(() => {
-    if (isActive === 'All') setShowTasks(tasks);
+    if (isActive === 'All') setShowTasks(tasks || []);
     else if (isActive === 'Pending') filter();
     else if (isActive === 'Completed') filter();
     else if (isActive === 'Pending for fees') filter();
@@ -65,12 +65,13 @@ export default function Main() {
       </SidebarContainer>
       <div style={{ margin: '0 auto' }}>
         <TaskView>
-          {showTasks.map((task) => (
-            <Task
-              task={task}
-              key={task._id}
-            />
-          ))}
+          {showTasks.length !== 0 &&
+            showTasks.map((task) => (
+              <Task
+                task={task}
+                key={task._id}
+              />
+            ))}
         </TaskView>
       </div>
     </MainContainer>
