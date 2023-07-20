@@ -78,7 +78,9 @@ const Button = styled.button`
   cursor: pointer;
   transition: all 0.2s;
   font-weight: 600;
-  &:hover {
+  &:hover,
+  &:active,
+  &:focus {
     background-color: var(--primary);
     background-image: linear-gradient(to right, var(--primary), var(--accent));
     color: var(--background);

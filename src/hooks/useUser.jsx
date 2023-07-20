@@ -5,7 +5,7 @@ import useTaskcontext from './useTaskContext';
 
 function useUser() {
   const navigate = useNavigate();
-  const { setUser } = useUserContext();
+  const { user, setUser } = useUserContext();
   const { setTasks } = useTaskcontext();
 
   const login = async (userInfo) => {
@@ -26,9 +26,9 @@ function useUser() {
     try {
       const res = await axios.post('/api/user/register', userInfo);
       const { status } = res;
-      if (status === 201) {
-        navigate('/login');
-      }
+      // if (status === 201) {
+      //   navigate('/login');
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -40,9 +40,36 @@ function useUser() {
     setTasks([]);
   };
 
-  const changeUsername = () => {};
+  const changeUsername = async (newUsername) => {
+    try {
+      const res = await axios.post('/api/user/changeusername', { user, newUsername });
+      const { data, status } = res;
+      if (status === 200) {
+        setUser(data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  return { login, register, logout, changeUsername };
+  const changeEmail = async (newEmail) => {
+    try {
+      const { data } = await axios.post('/api/user/changeemail', { user, newEmail });
+      setUser(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const changePassword = async (newPassword) => {
+    try {
+      await axios.post('/api/user/changepassword', { user, newPassword });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return { login, register, logout, changeUsername, changeEmail, changePassword };
 }
 
 export default useUser;

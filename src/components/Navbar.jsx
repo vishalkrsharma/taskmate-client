@@ -16,6 +16,7 @@ export default function Navbar() {
   const [newUsername, setNewUsername] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const { changeUsername, changeEmail, changePassword } = useUser();
 
   useEffect(() => {
     const clickOutside = (e) => {
@@ -36,6 +37,24 @@ export default function Navbar() {
       setNewPassword('');
     }
   }, [modalIsOpen]);
+
+  const handleChangeUsername = (event) => {
+    event.preventDefault();
+    changeUsername(newUsername);
+    setIsOpen(false);
+  };
+
+  const handleChangeEmail = (event) => {
+    event.preventDefault();
+    changeEmail(newEmail);
+    setIsOpen(false);
+  };
+
+  const handleChangePassword = (event) => {
+    event.preventDefault();
+    changePassword(newPassword);
+    setIsOpen(false);
+  };
 
   return (
     <Nav>
@@ -77,21 +96,27 @@ export default function Navbar() {
               value={newUsername}
               onChange={() => setNewUsername(event.target.value)}
             />
-            <UserSettingsButton>Submit</UserSettingsButton>
+            <UserSettingsButton onClick={handleChangeUsername}>Submit</UserSettingsButton>
           </FormElement>
         </UserSettingsForm>
         <UserSettingsForm>
-          <FormLabel for='newEmail'>Change Email</FormLabel>
+          <FormLabel htmlFor='newEmail'>Change Email</FormLabel>
           <FormElement>
-            <Input id='newEmail' />
-            <UserSettingsButton>Submit</UserSettingsButton>
+            <Input
+              id='newEmail'
+              onChange={() => setNewEmail(event.target.value)}
+            />
+            <UserSettingsButton onClick={handleChangeEmail}>Submit</UserSettingsButton>
           </FormElement>
         </UserSettingsForm>
         <UserSettingsForm>
           <FormLabel htmlFor='newPassword'>Change Password</FormLabel>
           <FormElement>
-            <Input />
-            <UserSettingsButton>Submit</UserSettingsButton>
+            <Input
+              id='newPassword'
+              onChange={() => setNewPassword(event.target.value)}
+            />
+            <UserSettingsButton onClick={handleChangePassword}>Submit</UserSettingsButton>
           </FormElement>
         </UserSettingsForm>
       </Modal>
