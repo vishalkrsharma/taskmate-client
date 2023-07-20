@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, CloseButton, Form, Input, Logo, ModalHeader, SecondaryHeader } from '../styles/styles';
+import { CloseButton, Input, Logo, ModalHeader, SecondaryHeader } from '../styles/styles';
 import useUser from '../hooks/useUser';
 import { BiUser, BiLogOut } from 'react-icons/bi';
 import Avatars from './Avatars';

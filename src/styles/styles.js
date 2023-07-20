@@ -55,7 +55,6 @@ const SecondaryHeader = styled.div`
 `;
 
 const Input = styled.input`
-  width: 50rem;
   padding: 1rem;
   border: 2px solid transparent;
   background-color: var(--hover);
@@ -67,9 +66,6 @@ const Input = styled.input`
   }
   @media (max-width: 500px) {
     width: 30rem;
-  }
-  @media (max-width: 1100px) {
-    width: 40rem;
   }
 `;
 
