@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { FormElement } from './FormStyles';
 
 const LoginRegisterContainer = styled.div`
   height: 100vh;
@@ -91,12 +92,13 @@ const Form = styled.form`
   flex-direction: row;
   margin-bottom: 1rem;
   font-size: 1.5rem;
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
     grid-template-columns: 1fr;
   }
 `;
 
 const TextArea = styled.textarea`
+  width: 50rem;
   padding: 1rem;
   border: 2px solid transparent;
   border-radius: 1rem;
@@ -110,9 +112,13 @@ const TextArea = styled.textarea`
   @media (max-width: 500px) {
     width: 30rem;
   }
+  @media (max-width: 1100px) {
+    width: 40rem;
+  }
 `;
 
 const Select = styled.select`
+  width: 50rem;
   padding: 1rem;
   border: 2px solid transparent;
   border-radius: 1rem;
@@ -121,9 +127,16 @@ const Select = styled.select`
   &:focus {
     border: 2px solid var(--algae);
   }
+  @media (max-width: 500px) {
+    width: 30rem;
+  }
+  @media (max-width: 1100px) {
+    width: 40rem;
+  }
 `;
 
 const CloseButton = styled.button`
+  cursor: pointer;
   background-color: transparent;
   aspect-ratio: 1;
 `;
@@ -161,6 +174,12 @@ const ModalButtonContainer = styled.div`
   gap: 2rem;
 `;
 
+const SidebarButtonLabel = styled.div`
+  @media (max-width: 820px) {
+    display: none;
+  }
+`;
+
 export {
   LoginRegisterContainer,
   Logo,
@@ -179,4 +198,5 @@ export {
   ModalHeader,
   ModalButtonContainer,
   ModalButton,
+  SidebarButtonLabel,
 };

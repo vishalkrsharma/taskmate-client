@@ -12,6 +12,7 @@ export default function App() {
   const { user } = useUserContext();
 
   axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
+  axios.defaults.headers.post['Authorization'] = `Bearer ${user.token}`;
 
   return (
     <BrowserRouter>

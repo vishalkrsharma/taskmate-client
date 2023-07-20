@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TabButton } from '../styles/styles';
+import { SidebarButtonLabel, TabButton } from '../styles/styles';
 import { styled } from 'styled-components';
 import { FaTasks, FaTimes, FaCheck, FaMoneyBill } from 'react-icons/fa';
 import useTaskcontext from '../hooks/useTaskContext';
@@ -36,7 +36,7 @@ export default function Main() {
           onClick={() => setIsActive('All')}
         >
           <FaTasks />
-          All
+          <SidebarButtonLabel>All</SidebarButtonLabel>
         </SidebarButton>
         <SidebarButton
           style={{ width: '22rem', fontSize: '1.75rem' }}
@@ -44,7 +44,7 @@ export default function Main() {
           onClick={() => setIsActive('Pending')}
         >
           <FaTimes />
-          Pending
+          <SidebarButtonLabel>Pending</SidebarButtonLabel>
         </SidebarButton>
         <SidebarButton
           style={{ width: '22rem', fontSize: '1.75rem' }}
@@ -52,7 +52,7 @@ export default function Main() {
           onClick={() => setIsActive('Pending for fees')}
         >
           <FaMoneyBill />
-          Pending for Fees
+          <SidebarButtonLabel>Pending for Fees</SidebarButtonLabel>
         </SidebarButton>
         <SidebarButton
           style={{ width: '22rem', fontSize: '1.75rem' }}
@@ -60,7 +60,7 @@ export default function Main() {
           onClick={() => setIsActive('Completed')}
         >
           <FaCheck />
-          Completed
+          <SidebarButtonLabel>Completed</SidebarButtonLabel>
         </SidebarButton>
       </SidebarContainer>
       <div style={{ margin: '0 auto' }}>
@@ -110,6 +110,11 @@ const SidebarButton = styled(TabButton)`
   padding-left: 1rem;
   background-color: ${(props) => props.selected && 'var(--hover)'};
   color: ${(props) => props.selected && 'var(--text)'};
+  @media (max-width: 820px) {
+    justify-content: center;
+    height: 4rem;
+    padding-left: 0;
+  }
 `;
 
 const TaskView = styled.div`

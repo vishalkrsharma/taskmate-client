@@ -1,21 +1,10 @@
 import React, { useState } from 'react';
-import Modal from 'react-modal';
+import Modal from './Modal';
 import useTask from '../hooks/useTask';
-import {
-  Button,
-  Input,
-  SecondaryHeader,
-  Form,
-  TextArea,
-  Select,
-  CloseButton,
-  ModalStyles,
-  ModalHeader,
-  ModalButton,
-  ModalButtonContainer,
-} from '../styles/styles';
+import { Button, Input, SecondaryHeader, Form, TextArea, Select, CloseButton, ModalHeader, ModalButton, ModalButtonContainer } from '../styles/styles';
 import { FaTimes } from 'react-icons/fa';
 import { TaskButtonContainer, TaskContainer } from '../styles/TaskStyles';
+import { FormLabel, EditFormElement } from '../styles/FormStyles';
 
 export default function Task({ task }) {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -23,31 +12,6 @@ export default function Task({ task }) {
   const { _id, category, clientName, job, startDate, endDate, status, remarks } = task;
   const { editTask, deleteTask } = useTask();
   const [editedTask, setEditedTask] = useState(task);
-
-  const openEditModal = () => {
-    setEditModalIsOpen(true);
-  };
-
-  const openDeleteModal = () => {
-    setDeleteModalIsOpen(true);
-  };
-
-  const closeEditModal = () => {
-    setEditModalIsOpen(false);
-    setEditedTask(task);
-  };
-
-  const closeDeleteModal = () => {
-    setDeleteModalIsOpen(false);
-  };
-
-  const editTsk = (_id) => {
-    openEditModal();
-  };
-
-  const deleteTsk = (_id) => {
-    setDeleteModalIsOpen(true);
-  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -59,7 +23,8 @@ export default function Task({ task }) {
 
   const handleEditSubmit = () => {
     editTask(editedTask);
-    closeEditModal();
+    setEditModalIsOpen(false);
+    setEditedTask(task);
   };
 
   const handleDeleteSubmit = () => {
@@ -77,102 +42,131 @@ export default function Task({ task }) {
       <div>Remarks: {remarks.length > 20 ? remarks.substring(0, 20) + '...' : remarks}</div>
       <div>Status: {status}</div>
       <TaskButtonContainer>
-        <Button onClick={openEditModal}>Edit</Button>
-        <Button onClick={openDeleteModal}>Delete</Button>
+        <Button onClick={() => setEditModalIsOpen(true)}>Edit</Button>
+        <Button onClick={() => setDeleteModalIsOpen(true)}>Delete</Button>
       </TaskButtonContainer>
       <Modal
-        isOpen={editModalIsOpen}
-        onRequestClose={closeEditModal}
-        style={ModalStyles}
+        modalIsOpen={editModalIsOpen}
+        setModalIsOpen={setEditModalIsOpen}
       >
         <ModalHeader>
           <SecondaryHeader>New Task</SecondaryHeader>
-          <CloseButton onClick={closeEditModal}>
+          <CloseButton
+            onClick={() => {
+              setEditModalIsOpen(false);
+              setEditedTask(task);
+            }}
+          >
             <FaTimes size={20} />
           </CloseButton>
         </ModalHeader>
         <Form>
-          <Input
-            type='text'
-            name='category'
-            placeholder='Category'
-            value={editedTask.category}
-            onChange={handleChange}
-          />
-          <Input
-            type='text'
-            name='clientName'
-            placeholder='Client Name'
-            value={editedTask.clientName}
-            onChange={handleChange}
-          />
-
-          <Input
-            type='date'
-            name='startDate'
-            value={editedTask.startDate}
-            onChange={handleChange}
-          />
-          <Input
-            type='date'
-            name='endDate'
-            value={editedTask.endDate}
-            onChange={handleChange}
-          />
-
-          <TextArea
-            cols='40'
-            rows='5'
-            type='text'
-            name='job'
-            placeholder='Job'
-            value={editedTask.job}
-            onChange={handleChange}
-          />
-          <TextArea
-            cols='40'
-            rows='5'
-            type='text'
-            name='remarks'
-            placeholder='Remarks'
-            value={editedTask.remarks}
-            onChange={handleChange}
-          />
-          <Select
-            name='status'
-            value={editedTask.status}
-            onChange={handleChange}
-          >
-            <option
-              style={{
-                display: 'none',
-              }}
-              value=''
-              disabled
+          <EditFormElement>
+            <FormLabel htmlFor='category'>Category</FormLabel>
+            <Input
+              id='category'
+              type='text'
+              name='category'
+              placeholder='Category'
+              value={editedTask.category}
+              onChange={handleChange}
+            />
+          </EditFormElement>
+          <EditFormElement>
+            <FormLabel htmlFor='clientName'>Client Name</FormLabel>
+            <Input
+              id='clientName'
+              type='text'
+              name='clientName'
+              placeholder='Client Name'
+              value={editedTask.clientName}
+              onChange={handleChange}
+            />
+          </EditFormElement>
+          <EditFormElement>
+            <FormLabel htmlFor='startDate'>Start Date</FormLabel>
+            <Input
+              id='startDate'
+              type='date'
+              name='startDate'
+              value={editedTask.startDate}
+              onChange={handleChange}
+            />
+          </EditFormElement>
+          <EditFormElement>
+            <FormLabel htmlFor='endDate'>End Date</FormLabel>
+            <Input
+              id='endDate'
+              type='date'
+              name='endDate'
+              value={editedTask.endDate}
+              onChange={handleChange}
+            />
+          </EditFormElement>
+          <EditFormElement>
+            <FormLabel htmlFor='job'>Job</FormLabel>
+            <TextArea
+              id='job'
+              cols='40'
+              rows='5'
+              type='text'
+              name='job'
+              placeholder='Job'
+              value={editedTask.job}
+              onChange={handleChange}
+            />
+          </EditFormElement>
+          <EditFormElement>
+            <FormLabel htmlFor='remarks'>Remarks</FormLabel>
+            <TextArea
+              id='remarks'
+              cols='40'
+              rows='5'
+              type='text'
+              name='remarks'
+              placeholder='Remarks'
+              value={editedTask.remarks}
+              onChange={handleChange}
+            />
+          </EditFormElement>
+          <EditFormElement>
+            <FormLabel htmlfor='status'>Status</FormLabel>
+            <Select
+              id='status'
+              name='status'
+              value={editedTask.status}
+              onChange={handleChange}
             >
-              Select Status
-            </option>
-            <option value='Pending'>Pending</option>
-            <option value='Pending For Payment'>Pending For Payment</option>
-            <option value='Completed'>Completed</option>
-          </Select>
+              <option
+                style={{
+                  display: 'none',
+                }}
+                value=''
+                disabled
+              >
+                Select Status
+              </option>
+              <option value='Pending'>Pending</option>
+              <option value='Pending For Payment'>Pending For Payment</option>
+              <option value='Completed'>Completed</option>
+            </Select>
+          </EditFormElement>
         </Form>
         <ModalButtonContainer>
           <ModalButton onClick={handleEditSubmit}>Edit</ModalButton>
-          <ModalButton onClick={closeEditModal}>Cancel</ModalButton>
+          <ModalButton onClick={() => setEditModalIsOpen(false)}>Cancel</ModalButton>
         </ModalButtonContainer>
       </Modal>
       <Modal
-        isOpen={deleteModalIsOpen}
-        onRequestClose={closeDeleteModal}
-        style={ModalStyles}
+        modalIsOpen={deleteModalIsOpen}
+        setModalIsOpen={setDeleteModalIsOpen}
       >
         <ModalHeader>
           <SecondaryHeader>Delete Task?</SecondaryHeader>
         </ModalHeader>
         <ModalButtonContainer>
           <ModalButton onClick={handleDeleteSubmit}>Yes</ModalButton>
-          <ModalButton onClick={closeDeleteModal}>No</ModalButton>
+          <ModalButton onClick={() => setDeleteModalIsOpen(false)}>No</ModalButton>
         </ModalButtonContainer>
       </Modal>
     </TaskContainer>

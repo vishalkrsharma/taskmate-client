@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { Button } from './styles';
 
 const FormContainer = styled.div`
   display: flex;
@@ -28,4 +29,36 @@ const PromtLink = styled.button`
   text-decoration: underline;
 `;
 
-export { FormContainer, Form, Promt, PromtLink };
+const FormElement = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+`;
+
+const UserSettingsForm = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  &:not(&:last-child) {
+    margin-bottom: 1rem;
+  }
+`;
+
+const UserSettingsButton = styled(Button)`
+  font-size: 1.75rem;
+`;
+
+const FormLabel = styled.label`
+  font-size: 1.75rem;
+  @media (max-width: 1000px) {
+    margin: -0.5rem 0;
+  }
+`;
+
+const EditFormElement = styled(FormElement)`
+  flex-direction: column;
+`;
+
+export { FormContainer, Form, Promt, PromtLink, FormElement, FormLabel, UserSettingsForm, UserSettingsButton, EditFormElement };
