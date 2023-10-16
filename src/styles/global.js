@@ -2,11 +2,14 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   :root {
-    --text: #fafafa;
-    --background: #1a1919;
-    --primary: #858683;
-    --secondary: #0d0d0d;
-    --accent: #737274;
+    --text: #fefafa;
+    --background: #2b2b2b;
+    --primary: #19e5e6;
+    --secondary: #07213c;
+    --accent: #27e787;
+    --hover: #363636;
+    --tiber: #093232;
+    --algae: #75f0b3;
   }
 
   *,
