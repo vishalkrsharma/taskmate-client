@@ -17,6 +17,7 @@ const useUser = () => {
       if (status === 200) {
         setUser(data);
         navigate('/');
+        toast.success('User Logged In', toastConfig);
       }
     } catch (err) {
       const { response: res } = err;
@@ -31,6 +32,7 @@ const useUser = () => {
       if (status === 201) {
         setUser(data);
         navigate('/');
+        toast.success('User Created and Logged In', toastConfig);
       }
     } catch (err) {
       const { response: res } = err;
@@ -42,6 +44,7 @@ const useUser = () => {
     localStorage.removeItem('user');
     setUser({});
     setTasks([]);
+    toast.success('User Logged Out', toastConfig);
   };
 
   const changeUsername = async (newUsername) => {
@@ -50,6 +53,7 @@ const useUser = () => {
       const { data, status } = res;
       if (status === 200) {
         setUser(data);
+        toast.success('Username Changed', toastConfig);
       }
     } catch (err) {
       console.log(err);
@@ -60,6 +64,7 @@ const useUser = () => {
     try {
       const { data } = await axios.post('/api/user/changeemail', { user, newEmail });
       setUser(data);
+      toast.success('Email Changed', toastConfig);
     } catch (err) {
       console.log(err);
     }
@@ -67,7 +72,8 @@ const useUser = () => {
 
   const changePassword = async (newPassword) => {
     try {
-      await axios.post('/api/user/changepassword', { user, newPassword });
+      const res = await axios.post('/api/user/changepassword', { user, newPassword });
+      toast.success('Username Changed', toastConfig);
     } catch (err) {
       console.log(err);
     }
