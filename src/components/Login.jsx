@@ -3,7 +3,7 @@ import useUser from '../hooks/useUser';
 import { Form, FormContainer, Promt, PromtLink } from '../styles/FormStyles';
 import { Input, Button } from '../styles/styles';
 
-export default function Login({ setActiveTab }) {
+const Login = ({ setActiveTab }) => {
   const [userInfo, setUserInfo] = useState({
     username: '',
     password: '',
@@ -65,4 +65,6 @@ export default function Login({ setActiveTab }) {
       </Promt>
     </FormContainer>
   );
-}
+};
+
+export default Login;

@@ -21,8 +21,9 @@ export default function Register({ setActiveTab }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    register(userInfo);
-    setActiveTab('login');
+    if (userInfo.username !== '' && userInfo.email !== '' && userInfo.password !== '') {
+      register(userInfo);
+    }
   };
 
   return (
