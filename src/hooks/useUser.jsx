@@ -2,8 +2,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useUserContext from './useUserContext';
 import useTaskcontext from './useTaskContext';
+import toastConfig from '../config/toast';
+import { toast } from 'react-toastify';
 
-function useUser() {
+const useUser = () => {
   const navigate = useNavigate();
   const { user, setUser } = useUserContext();
   const { setTasks } = useTaskcontext();
@@ -13,24 +15,26 @@ function useUser() {
       const res = await axios.post('/api/user/login', userInfo);
       const { data, status } = res;
       if (status === 200) {
-        localStorage.setItem('user', JSON.stringify(data));
         setUser(data);
         navigate('/');
       }
     } catch (err) {
-      console.log(err);
+      const { response: res } = err;
+      toast.error(res.data.message, toastConfig);
     }
   };
 
   const register = async (userInfo) => {
     try {
       const res = await axios.post('/api/user/register', userInfo);
-      const { status } = res;
-      // if (status === 201) {
-      //   navigate('/login');
-      // }
+      const { data, status } = res;
+      if (status === 201) {
+        setUser(data);
+        navigate('/');
+      }
     } catch (err) {
-      console.log(err);
+      const { response: res } = err;
+      toast.error(res.data.message, toastConfig);
     }
   };
 
@@ -70,6 +74,6 @@ function useUser() {
   };
 
   return { login, register, logout, changeUsername, changeEmail, changePassword };
-}
+};
 
 export default useUser;

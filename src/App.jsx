@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import useUserContext from './hooks/useUserContext';
 import Modal from 'react-modal';
 import LoginOrRegister from './pages/LoginOrRegister';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 Modal.setAppElement('#root');
 
@@ -15,19 +17,22 @@ export default function App() {
   axios.defaults.headers.post['Authorization'] = `Bearer ${user.token}`;
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path='/'
-          element={Object.keys(user).length === 0 ? <LoginOrRegister /> : <PrivateRoute />}
-        />
-        <Route element={<PrivateRoute />}>
+    <>
+      <BrowserRouter>
+        <Routes>
           <Route
-            index
-            element={<Home />}
+            path='/'
+            element={Object.keys(user).length === 0 ? <LoginOrRegister /> : <PrivateRoute />}
           />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          <Route element={<PrivateRoute />}>
+            <Route
+              index
+              element={<Home />}
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      <ToastContainer />
+    </>
   );
 }
