@@ -1,5 +1,7 @@
-function App() {
-  return <div className='text-xl'>a</div>;
-}
+import { AppRouter } from '@/router/AppRouter';
+
+const App = () => {
+  return <AppRouter />;
+};
 
 export default App;
