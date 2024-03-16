@@ -1,18 +1,23 @@
+import { useAuthStore } from '@/hooks/useAuthStore';
 import Auth from '@/pages/Auth';
-import Home from '@/pages/Home';
 import PrivateRoutes from '@/routes/PrivateRoutes';
+import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-type Status = 'checking' | 'authenticated' | 'no-authenticated';
-
-let status: Status = 'authenticated';
+type Status = boolean;
 
 export const AppRouter = () => {
-  if (status === 'checking') return <div className='loading'>Checking credentials...</div>;
+  const [status, setStatus] = useState<boolean>();
+  const _id = useAuthStore((state) => state._id);
+
+  useEffect(() => {
+    if (_id) setStatus(true);
+    else setStatus(false);
+  }, [_id]);
 
   return (
     <Routes>
-      {status === 'authenticated' ? (
+      {status ? (
         <Route
           path='/*'
           element={<PrivateRoutes />}
