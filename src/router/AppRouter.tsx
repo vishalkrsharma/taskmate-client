@@ -1,42 +1,25 @@
-import { useAuthStore } from '@/hooks/useAuthStore';
-import Auth from '@/pages/Auth';
-import PrivateRoutes from '@/routes/PrivateRoutes';
-import { useEffect, useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
-type Status = boolean;
+import AnonmyousRoutes from '@/routes/AnonmyousRoutes';
+import PrivateRoutes from '@/routes/PrivateRoutes';
+import Auth from '@/pages/Auth';
+import Home from '@/pages/Home';
 
 export const AppRouter = () => {
-  const [status, setStatus] = useState<boolean>();
-  const _id = useAuthStore((state) => state._id);
-
-  useEffect(() => {
-    if (_id) setStatus(true);
-    else setStatus(false);
-  }, [_id]);
-
   return (
     <Routes>
-      {status ? (
+      <Route element={<PrivateRoutes />}>
         <Route
-          path='/*'
-          element={<PrivateRoutes />}
+          path='/'
+          element={<Home />}
         />
-      ) : (
+      </Route>
+      <Route element={<AnonmyousRoutes />}>
         <Route
           path='auth'
           element={<Auth />}
         />
-      )}
-      <Route
-        path='*'
-        element={
-          <Navigate
-            to='/auth'
-            replace
-          />
-        }
-      />
+      </Route>
     </Routes>
   );
 };

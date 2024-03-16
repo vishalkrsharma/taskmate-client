@@ -1,24 +1,11 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
-import Home from '@/pages/Home';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuthStore } from '@/hooks/useAuthStore';
+import Auth from '@/pages/Auth';
 
 const PrivateRoutes = () => {
-  return (
-    <Routes>
-      <Route
-        path='/'
-        element={<Home />}
-      />
-      <Route
-        path='*'
-        element={
-          <Navigate
-            to='/'
-            replace
-          />
-        }
-      />
-    </Routes>
-  );
+  const _id = useAuthStore((state) => state._id);
+
+  return _id ? <Outlet /> : <Navigate to='/auth' />;
 };
 
 export default PrivateRoutes;
