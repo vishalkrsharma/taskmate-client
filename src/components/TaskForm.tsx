@@ -34,17 +34,20 @@ type FormValues = z.infer<typeof formSchema>;
 
 const TaskForm = () => {
   const navigate = useNavigate();
-  const { task } = useLocation().state;
+  const location = useLocation();
+  const task = location.state ? location.state.task : null;
   const _id = useAuthStore((state) => state._id);
   const { toast } = useToast();
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: task.title || '',
-      content: task.content || '',
-      date: new Date(task.date) || new Date(),
-      isArchived: task.isArchived || false,
-    },
+    defaultValues: task
+      ? { ...task }
+      : {
+          title: '',
+          content: '',
+          date: new Date(),
+          isArchived: false,
+        },
   });
 
   const isLoading = form.formState.isSubmitting;
