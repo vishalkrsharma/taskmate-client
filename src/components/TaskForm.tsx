@@ -55,13 +55,13 @@ const TaskForm = () => {
   const onSubmit = async (values: FormValues) => {
     try {
       if (task) {
-        const { data } = await axios.put('http://localhost:5000/api/task/edit-task', { userId: _id, ...values, taskId: task._id });
+        const { data } = await axios.put('/api/task/edit-task', { userId: _id, ...values, taskId: task._id });
         toast({
           description: data.message,
           duration: 1000,
         });
       } else {
-        const { data } = await axios.post('http://localhost:5000/api/task/new-task', { userId: _id, ...values });
+        const { data } = await axios.post('/api/task/new-task', { userId: _id, ...values });
         toast({
           description: data.message,
           duration: 1000,

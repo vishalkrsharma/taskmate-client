@@ -33,7 +33,7 @@ const Signup = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/signup', values, { withCredentials: true });
+      const { data } = await axios.post('/api/auth/signup', values, { withCredentials: true });
       const { user } = data;
       setUser(user.username, user._id);
       toast({
