@@ -10,7 +10,6 @@ const App = () => {
     if (storedUser) {
       const { state } = JSON.parse(storedUser);
       setUser(state.username, state._id);
-      console.log(state);
     }
   }, []);
 

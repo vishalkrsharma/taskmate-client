@@ -1,15 +1,12 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import Taskbar from '@/components/Taskbar';
-import { useAuthStore } from '@/hooks/useAuthStore';
 
-const PrivateRoutes = () => {
-  const _id = useAuthStore((state) => state._id);
-
-  return _id ? (
-    <div>
+const Layout = () => {
+  return (
+    <div className='font-mono'>
       <Header />
       <div className='flex justify-start items-center h-[calc(100vh-60px)]'>
         <Sidebar />
@@ -17,9 +14,7 @@ const PrivateRoutes = () => {
         <Outlet />
       </div>
     </div>
-  ) : (
-    <Navigate to='/auth' />
   );
 };
 
-export default PrivateRoutes;
+export default Layout;

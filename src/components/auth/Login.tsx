@@ -1,13 +1,14 @@
 import * as z from 'zod';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import axios from '@/lib/axios';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useAuthStore } from '@/hooks/useAuthStore';
+import { useToast } from '@/components/ui/use-toast';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -18,10 +19,13 @@ const formSchema = z.object({
   }),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
 const Login = () => {
   const navigate = useNavigate();
   const setUser = useAuthStore((state) => state.setUser);
-  const form = useForm({
+  const { toast } = useToast();
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: '',
@@ -31,18 +35,25 @@ const Login = () => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: FormValues) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', values, { withCredentials: true });
-      const { user } = res.data;
+      const { data } = await axios.post('http://localhost:5000/api/auth/login', values, { withCredentials: true });
+      const { user } = data;
       setUser(user.username, user._id);
-      console.log(user);
-    } catch (error) {
+      toast({
+        description: data.message,
+        duration: 1000,
+      });
+      navigate('/');
+    } catch (error: any) {
+      const { data } = error.response;
+      toast({
+        description: data.message,
+        duration: 1000,
+      });
       console.log(error);
     } finally {
       form.reset();
-
-      navigate('/');
     }
   };
 

@@ -1,11 +1,14 @@
 import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import axios from '@/lib/axios';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/hooks/useAuthStore';
+import { useToast } from '@/components/ui/use-toast';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -17,6 +20,9 @@ const formSchema = z.object({
 });
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const setUser = useAuthStore((state) => state.setUser);
+  const { toast } = useToast();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -27,9 +33,20 @@ const Signup = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/signup', values, { withCredentials: true });
-      console.log(res);
-    } catch (error) {
+      const { data } = await axios.post('http://localhost:5000/api/auth/signup', values, { withCredentials: true });
+      const { user } = data;
+      setUser(user.username, user._id);
+      toast({
+        description: data.message,
+        duration: 1000,
+      });
+      navigate('/');
+    } catch (error: any) {
+      const { data } = error.response;
+      toast({
+        description: data.message,
+        duration: 1000,
+      });
       console.log(error);
     } finally {
       form.reset();

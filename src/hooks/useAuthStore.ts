@@ -4,7 +4,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 interface useAuthStore {
   username: null | string;
   _id: null | string;
-  setUser: (username: string, _id: string) => void;
+  setUser: (username: string | null, _id: string | null) => void;
 }
 
 export const useAuthStore = create<useAuthStore>()(
@@ -12,7 +12,7 @@ export const useAuthStore = create<useAuthStore>()(
     (set) => ({
       username: null,
       _id: null,
-      setUser: (username: string, _id: string) => set({ username, _id }),
+      setUser: (username, _id) => set({ username, _id }),
     }),
     {
       name: 'user',
