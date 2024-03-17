@@ -37,7 +37,7 @@ const Login = () => {
 
   const onSubmit = async (values: FormValues) => {
     try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/login', values, { withCredentials: true });
+      const { data } = await axios.post('/api/auth/login', values, { withCredentials: true });
       const { user } = data;
       setUser(user.username, user._id);
       toast({
