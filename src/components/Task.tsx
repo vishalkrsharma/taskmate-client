@@ -1,0 +1,145 @@
+import { format } from 'date-fns';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+
+import axios from '@/lib/axios';
+import { cn } from '@/lib/utils';
+import { TaskType } from '@/types';
+import { CalendarIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/hooks/useAuthStore';
+import { Calendar } from '@/components/ui/calendar';
+import { useToast } from '@/components/ui/use-toast';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+
+const Task = () => {
+  const navigate = useNavigate();
+  const [task, setTask] = useState<TaskType>();
+  const { toast } = useToast();
+  const _id = useAuthStore((state) => state._id);
+  const params = useParams();
+
+  useEffect(() => {
+    (async function () {
+      const { data } = await axios.get('/api/task/get-task/', {
+        params: {
+          taskId: params.id,
+          userId: _id,
+        },
+      });
+      setTask(data.task);
+    })();
+  }, [params]);
+
+  const handleDelete = async () => {
+    try {
+      const { data } = await axios.delete('/api/task/delete-task', { params: { userId: _id, taskId: task?._id } });
+      toast({
+        description: data.message,
+        duration: 1000,
+      });
+    } catch (error: any) {
+      const { data } = error.response;
+      toast({
+        description: data.message,
+        duration: 1000,
+      });
+      console.log(error);
+    } finally {
+      navigate('/');
+    }
+  };
+
+  return (
+    <div className='flex-1 flex-col justify-start items-start h-[calc(100vh-60px)] p-2'>
+      <div className='flex justify-between items-center'>
+        <h1 className='text-2xl font-medium'>Task details</h1>
+        <div className='flex item-center justify-center gap-4'>
+          <Button
+            variant='outline'
+            className='font-semibold'
+          >
+            <Link
+              to='edit'
+              state={{ task }}
+            >
+              Edit
+            </Link>
+          </Button>
+
+          <AlertDialog>
+            <AlertDialogTrigger>
+              <Button
+                variant='destructive'
+                className='font-semibold'
+              >
+                Delete
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent className='font-mono'>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+      </div>
+      <div className='space-y-4'>
+        <div>
+          <div className='text-sm'>Title</div>
+          <div className='opacity-50 border p-2 rounded-sm text-sm'>{task?.title}</div>
+        </div>
+        <div>
+          <div className='text-sm'>Content</div>
+          <div className='opacity-50 border p-2 rounded-sm text-sm'>{task?.content}</div>
+        </div>
+        <div>
+          <div className='text-sm'>Date</div>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={'outline'}
+                className={cn('w-[240px] justify-start text-left font-normal', !task?.date && 'text-muted-foreground')}
+                disabled
+              >
+                <CalendarIcon className='mr-2 h-4 w-4' />
+                {task?.date ? format(task?.date, 'PPP') : <span>Pick a date</span>}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent
+              className='w-auto p-0'
+              align='start'
+            >
+              <Calendar
+                mode='single'
+                selected={task?.date}
+                disabled
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Task;
