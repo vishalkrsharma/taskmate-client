@@ -5,3 +5,9 @@ export interface TaskType {
   date: Date;
   isArchived: boolean;
 }
+
+export type TaskFilterType = {
+  past?: boolean;
+  today?: boolean;
+  future?: boolean;
+};
