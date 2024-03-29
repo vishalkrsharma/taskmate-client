@@ -1,12 +1,9 @@
 import { Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
-import axios from '@/lib/axios';
 import { TaskType } from '@/types';
 import { Button } from '@/components/ui/button';
 import TaskbarItem from '@/components/TaskbarItem';
-import { useAuthStore } from '@/hooks/useAuthStore';
 import { Separator } from '@/components/ui/separator';
 
 const Taskbar = ({ tasks }: { tasks: TaskType[] }) => {

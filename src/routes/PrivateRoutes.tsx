@@ -7,11 +7,17 @@ import { useAuthStore } from '@/hooks/useAuthStore';
 import { useEffect, useState } from 'react';
 import { TaskFilterType, TaskType } from '@/types';
 import axios from '@/lib/axios';
+import { stringToDate } from '@/lib/utils';
 
 const PrivateRoutes = () => {
   const _id = useAuthStore((state) => state._id);
   const [filter, setFilter] = useState({});
   const [tasks, setTasks] = useState<TaskType[]>([]);
+  const [taskDates, setTaskDates] = useState<Date[]>([]);
+
+  useEffect(() => {
+    getTaskDays();
+  }, []);
 
   useEffect(() => {
     getTasks(filter);
@@ -27,6 +33,16 @@ const PrivateRoutes = () => {
     setTasks(data.tasks);
   };
 
+  const getTaskDays = async () => {
+    const { data } = await axios.get('/api/task/get-task-dates', {
+      params: {
+        userId: _id,
+      },
+    });
+
+    setTaskDates(stringToDate(data.taskDates));
+  };
+
   return _id ? (
     <div>
       <Header />
@@ -34,9 +50,10 @@ const PrivateRoutes = () => {
         <Sidebar
           filter={filter}
           setFilter={setFilter}
+          taskDates={taskDates}
         />
         <Taskbar tasks={tasks} />
-        <Outlet />
+        <Outlet context={[getTasks, filter]} />
       </div>
     </div>
   ) : (

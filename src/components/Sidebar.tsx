@@ -1,15 +1,27 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { Calendar } from '@/components/ui/calendar';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-const Sidebar = ({ filter, setFilter }: { filter: any; setFilter: Dispatch<SetStateAction<any>> }) => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+const bookedStyle = { border: '1px solid #000000', borderRadius: '5px' };
+
+const Sidebar = ({ filter, setFilter, taskDates }: { filter: any; setFilter: Dispatch<SetStateAction<any>>; taskDates: Date[] }) => {
+  const [date, setDate] = useState<Date | undefined>();
+
+  useEffect(() => {
+    if (typeof date !== 'undefined')
+      setFilter({
+        date,
+      });
+  }, [date]);
+
   return (
     <div className='w-[300px] h-[calc(100vh-60px)] flex flex-col justify-start items-center p-2 border-r'>
       <Calendar
+        modifiers={{ booked: taskDates }}
+        modifiersStyles={{ booked: bookedStyle }}
         mode='single'
         selected={date}
         onSelect={setDate}
@@ -52,6 +64,20 @@ const Sidebar = ({ filter, setFilter }: { filter: any; setFilter: Dispatch<SetSt
           onClick={() =>
             setFilter({
               future: true,
+            })
+          }
+        >
+          Future Tasks
+        </Button>
+      </div>
+      <Separator className='my-2' />
+      <div className='flex flex-col gap-2 w-full'>
+        <Button
+          variant='outline'
+          className={cn('flex-1', filter.future && 'bg-accent')}
+          onClick={() =>
+            setFilter({
+              isArchieved: true,
             })
           }
         >
