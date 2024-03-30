@@ -2,7 +2,7 @@ import * as z from 'zod';
 import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { CalendarIcon } from 'lucide-react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import axios from '@/lib/axios';
@@ -16,6 +16,7 @@ import { useAuthStore } from '@/hooks/useAuthStore';
 import { useToast } from '@/components/ui/use-toast';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { TaskFilterType } from '@/types';
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -33,15 +34,17 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const TaskForm = () => {
+  const [getTasks, filter]: [(filter: TaskFilterType) => Promise<void>, TaskFilterType] = useOutletContext();
   const navigate = useNavigate();
   const location = useLocation();
   const task = location.state ? location.state.task : null;
   const _id = useAuthStore((state) => state._id);
   const { toast } = useToast();
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: task
-      ? { ...task }
+      ? { ...task, date: new Date(task.date) }
       : {
           title: '',
           content: '',
@@ -78,12 +81,13 @@ const TaskForm = () => {
       console.log(error);
     } finally {
       form.reset();
+      getTasks(filter);
     }
   };
 
   return (
     <div className='flex-1 flex-col justify-start items-start h-[calc(100vh-60px)] p-2'>
-      <h1 className='text-2xl font-medium mt-1 mb-2'>New Task</h1>
+      <h1 className='text-2xl font-medium mt-1 mb-2'>{task ? 'Edit' : 'New'} Task</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -150,10 +154,8 @@ const TaskForm = () => {
                       mode='single'
                       selected={field.value}
                       onSelect={field.onChange}
-                      disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
                       initialFocus
                     />
-                    mb-4
                   </PopoverContent>
                 </Popover>
                 <FormDescription>Pick the date for the task.</FormDescription>

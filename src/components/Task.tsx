@@ -30,11 +30,13 @@ const Task = () => {
   const _id = useAuthStore((state) => state._id);
   const params = useParams();
 
+  console.log(params);
+
   useEffect(() => {
     (async function () {
       const { data } = await axios.get('/api/task/get-task/', {
         params: {
-          taskId: params.id,
+          taskId: params.taskId,
           userId: _id,
         },
       });
@@ -77,15 +79,9 @@ const Task = () => {
               Edit
             </Link>
           </Button>
-
           <AlertDialog>
-            <AlertDialogTrigger>
-              <Button
-                variant='destructive'
-                className='font-semibold'
-              >
-                Delete
-              </Button>
+            <AlertDialogTrigger className='inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 px-4 py-2 font-semibold'>
+              Delete
             </AlertDialogTrigger>
             <AlertDialogContent className='font-mono'>
               <AlertDialogHeader>

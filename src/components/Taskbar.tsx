@@ -1,29 +1,12 @@
 import { Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
-import axios from '@/lib/axios';
 import { TaskType } from '@/types';
 import { Button } from '@/components/ui/button';
 import TaskbarItem from '@/components/TaskbarItem';
-import { useAuthStore } from '@/hooks/useAuthStore';
 import { Separator } from '@/components/ui/separator';
 
-const Taskbar = () => {
-  const _id = useAuthStore((state) => state._id);
-  const [tasks, setTasks] = useState<TaskType[]>([]);
-
-  useEffect(() => {
-    (async function () {
-      const { data } = await axios.get('/api/task/get-tasks', {
-        params: {
-          userId: _id,
-        },
-      });
-      setTasks(data.tasks);
-    })();
-  }, []);
-
+const Taskbar = ({ tasks }: { tasks: TaskType[] }) => {
   return (
     <div className='w-[400px] h-[calc(100vh-60px)] border-r flex flex-col p-2 justify-start items-center overflow-scroll'>
       <Button

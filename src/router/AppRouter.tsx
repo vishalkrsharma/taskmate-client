@@ -21,11 +21,11 @@ export const AppRouter = () => {
             element={<TaskForm />}
           />
           <Route
-            path=':id'
+            path=':taskId'
             element={<Task />}
-          />
+          ></Route>
           <Route
-            path=':id/edit'
+            path=':taskId/edit'
             element={<TaskForm />}
           />
         </Route>
