@@ -10,4 +10,5 @@ export type TaskFilterType = {
   past?: boolean;
   today?: boolean;
   future?: boolean;
+  isArchived?: boolean;
 };

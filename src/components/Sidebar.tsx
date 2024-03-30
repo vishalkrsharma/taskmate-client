@@ -4,11 +4,13 @@ import { Calendar } from '@/components/ui/calendar';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-
-const bookedStyle = { border: '1px solid #000000', borderRadius: '5px' };
+import { TaskFilterType } from '@/types';
+import { useTheme } from './ThemeProvider';
 
 const Sidebar = ({ filter, setFilter, taskDates }: { filter: any; setFilter: Dispatch<SetStateAction<any>>; taskDates: Date[] }) => {
+  const { theme } = useTheme();
   const [date, setDate] = useState<Date | undefined>();
+  const bookedStyle = { border: `1px solid ${theme === 'light' ? '#020817' : '#ffffff'}`, borderRadius: '5px', scale: '0.9' };
 
   useEffect(() => {
     if (typeof date !== 'undefined')
@@ -31,7 +33,7 @@ const Sidebar = ({ filter, setFilter, taskDates }: { filter: any; setFilter: Dis
       <div className='flex flex-col gap-2 w-full'>
         <Button
           variant='outline'
-          className={cn('flex-1', Object.keys(filter).length === 0 && 'bg-accent')}
+          className={cn('flex-1', !filter.past && !filter.today && !filter.future && 'bg-accent')}
           onClick={() => setFilter({})}
         >
           All Tasks
@@ -74,14 +76,10 @@ const Sidebar = ({ filter, setFilter, taskDates }: { filter: any; setFilter: Dis
       <div className='flex flex-col gap-2 w-full'>
         <Button
           variant='outline'
-          className={cn('flex-1', filter.future && 'bg-accent')}
-          onClick={() =>
-            setFilter({
-              isArchieved: true,
-            })
-          }
+          className={cn('flex-1', filter.isArchived && 'bg-accent')}
+          onClick={() => setFilter((prev: TaskFilterType) => ({ ...prev, isArchived: !prev.isArchived }))}
         >
-          Future Tasks
+          Archived Tasks
         </Button>
       </div>
     </div>

@@ -1,13 +1,13 @@
+import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import Header from '@/components/Header';
+import axios from '@/lib/axios';
+import Navbar from '@/components/Navbar';
 import Sidebar from '@/components/Sidebar';
 import Taskbar from '@/components/Taskbar';
-import { useAuthStore } from '@/hooks/useAuthStore';
-import { useEffect, useState } from 'react';
-import { TaskFilterType, TaskType } from '@/types';
-import axios from '@/lib/axios';
 import { stringToDate } from '@/lib/utils';
+import { TaskFilterType, TaskType } from '@/types';
+import { useAuthStore } from '@/hooks/useAuthStore';
 
 const PrivateRoutes = () => {
   const _id = useAuthStore((state) => state._id);
@@ -45,7 +45,7 @@ const PrivateRoutes = () => {
 
   return _id ? (
     <div>
-      <Header />
+      <Navbar />
       <div className='flex justify-start items-center h-[calc(100vh-60px)]'>
         <Sidebar
           filter={filter}
