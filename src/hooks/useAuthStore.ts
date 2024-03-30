@@ -5,6 +5,7 @@ interface useAuthStore {
   username: null | string;
   _id: null | string;
   setUser: (username: string | null, _id: string | null) => void;
+  setUsername: (username: string | null) => void;
 }
 
 export const useAuthStore = create<useAuthStore>()(
@@ -13,6 +14,7 @@ export const useAuthStore = create<useAuthStore>()(
       username: null,
       _id: null,
       setUser: (username, _id) => set({ username, _id }),
+      setUsername: (username) => set({ username }),
     }),
     {
       name: 'user',
