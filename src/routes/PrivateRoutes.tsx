@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import axios from '@/lib/axios';
-import Navbar from '@/components/Navbar';
-import Sidebar from '@/components/Sidebar';
-import Taskbar from '@/components/Taskbar';
 import { stringToDate } from '@/lib/utils';
 import { TaskFilterType, TaskType } from '@/types';
 import { useAuthStore } from '@/hooks/useAuthStore';
+import Home from '@/pages/Home';
 
 const PrivateRoutes = () => {
   const _id = useAuthStore((state) => state._id);
@@ -17,7 +15,7 @@ const PrivateRoutes = () => {
 
   useEffect(() => {
     getTaskDays();
-  }, []);
+  }, [tasks]);
 
   useEffect(() => {
     getTasks(filter);
@@ -44,18 +42,13 @@ const PrivateRoutes = () => {
   };
 
   return _id ? (
-    <div>
-      <Navbar />
-      <div className='flex justify-start items-center h-[calc(100vh-60px)]'>
-        <Sidebar
-          filter={filter}
-          setFilter={setFilter}
-          taskDates={taskDates}
-        />
-        <Taskbar tasks={tasks} />
-        <Outlet context={[getTasks, filter]} />
-      </div>
-    </div>
+    <Home
+      filter={filter}
+      setFilter={setFilter}
+      taskDates={taskDates}
+      tasks={tasks}
+      getTasks={getTasks}
+    />
   ) : (
     <Navigate to='/auth' />
   );

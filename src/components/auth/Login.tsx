@@ -12,10 +12,10 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 
 const formSchema = z.object({
   username: z.string().min(4, {
-    message: 'Username is required.',
+    message: 'Username must be atleast 4 characters long.',
   }),
   password: z.string().min(4, {
-    message: 'Password is required.',
+    message: 'Password must be atleast 4 characters long.',
   }),
 });
 
@@ -42,14 +42,14 @@ const Login = () => {
       setUser(user.username, user._id);
       toast({
         description: data.message,
-        duration: 1000,
+        duration: 3000,
       });
       navigate('/');
     } catch (error: any) {
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 1000,
+        duration: 3000,
       });
       console.log(error);
     } finally {

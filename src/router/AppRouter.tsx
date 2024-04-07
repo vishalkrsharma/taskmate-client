@@ -3,9 +3,9 @@ import { Routes, Route } from 'react-router-dom';
 import Auth from '@/pages/Auth';
 import Task from '@/components/Task';
 import Main from '@/components/Main';
+import TaskForm from '@/components/TaskForm';
 import PrivateRoutes from '@/routes/PrivateRoutes';
 import AnonmyousRoutes from '@/routes/AnonmyousRoutes';
-import TaskForm from '@/components/TaskForm';
 
 export const AppRouter = () => {
   return (
@@ -13,9 +13,9 @@ export const AppRouter = () => {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route
-            path='/'
+            index
             element={<Main />}
-          ></Route>
+          />
           <Route
             path='new-task'
             element={<TaskForm />}
