@@ -13,8 +13,6 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      console.log(cookies);
-
       if (!cookies.token) {
         setUser(null, null);
         toast({
