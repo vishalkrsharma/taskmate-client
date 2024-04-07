@@ -47,7 +47,6 @@ const Signup = () => {
         description: data.message,
         duration: 3000,
       });
-      console.log(error);
     } finally {
       form.reset();
     }

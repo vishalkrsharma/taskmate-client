@@ -51,7 +51,6 @@ const ChangeUsername = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
         description: data.message,
         duration: 3000,
       });
-      console.log(error);
     }
   };
 

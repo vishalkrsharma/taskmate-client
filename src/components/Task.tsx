@@ -30,8 +30,6 @@ const Task = () => {
   const _id = useAuthStore((state) => state._id);
   const params = useParams();
 
-  console.log(params);
-
   useEffect(() => {
     (async function () {
       const { data } = await axios.get('/api/task/get-task/', {
@@ -57,7 +55,6 @@ const Task = () => {
         description: data.message,
         duration: 3000,
       });
-      console.log(error);
     } finally {
       navigate('/');
     }
