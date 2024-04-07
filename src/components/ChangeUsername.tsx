@@ -41,7 +41,7 @@ const ChangeUsername = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
       setUsername(user.username);
       toast({
         description: data.message,
-        duration: 1000,
+        duration: 3000,
       });
       form.reset();
       setIsOpen(false);
@@ -49,7 +49,7 @@ const ChangeUsername = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 1000,
+        duration: 3000,
       });
       console.log(error);
     }

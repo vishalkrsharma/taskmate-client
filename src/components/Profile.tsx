@@ -39,7 +39,7 @@ const Profile = () => {
     setUser(null, null);
     toast({
       description: 'User logged out',
-      duration: 1000,
+      duration: 3000,
     });
   };
   return (

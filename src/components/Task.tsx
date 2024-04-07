@@ -49,13 +49,13 @@ const Task = () => {
       const { data } = await axios.delete('/api/task/delete-task', { params: { userId: _id, taskId: task?._id } });
       toast({
         description: data.message,
-        duration: 1000,
+        duration: 3000,
       });
     } catch (error: any) {
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 1000,
+        duration: 3000,
       });
       console.log(error);
     } finally {

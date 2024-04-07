@@ -36,13 +36,13 @@ const ChangePassword = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
       const { data } = await axios.patch('/api/user/change-password', { userId: _id, ...values });
       toast({
         description: data.message,
-        duration: 1000,
+        duration: 3000,
       });
     } catch (error: any) {
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 1000,
+        duration: 3000,
       });
       console.log(error);
     } finally {

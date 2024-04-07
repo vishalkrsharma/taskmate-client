@@ -61,13 +61,13 @@ const TaskForm = () => {
         const { data } = await axios.put('/api/task/edit-task', { userId: _id, ...values, taskId: task._id });
         toast({
           description: data.message,
-          duration: 1000,
+          duration: 3000,
         });
       } else {
         const { data } = await axios.post('/api/task/new-task', { userId: _id, ...values });
         toast({
           description: data.message,
-          duration: 1000,
+          duration: 3000,
         });
       }
 
@@ -76,7 +76,7 @@ const TaskForm = () => {
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 1000,
+        duration: 3000,
       });
       console.log(error);
     } finally {
