@@ -14,7 +14,7 @@ const Taskbar = ({ tasks }: { tasks: TaskType[] }) => {
         className='w-full p-0'
       >
         <Link
-          to='/new-task'
+          to='/dashboard/tasks/new-task'
           className='w-full h-10 flex justify-center items-center rounded-sm'
         >
           New task

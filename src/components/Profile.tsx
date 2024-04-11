@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 import { useAuthStore } from '@/hooks/useAuthStore';
 import Avatar from '@/components/ui/avatar';
@@ -34,9 +35,11 @@ const Profile = () => {
   const [openChangePassword, setIsOpenChangePassword] = useState(false);
   const setUser = useAuthStore((state) => state.setUser);
   const { toast } = useToast();
+  const [_cookies, _setCookie, removeCookie] = useCookies(['token']);
 
   const logout = () => {
     setUser(null, null);
+    removeCookie('token');
     toast({
       description: 'User logged out',
       duration: 3000,

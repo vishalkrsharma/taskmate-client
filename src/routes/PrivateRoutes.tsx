@@ -50,7 +50,7 @@ const PrivateRoutes = () => {
       getTasks={getTasks}
     />
   ) : (
-    <Navigate to='/auth' />
+    <Navigate to='/' />
   );
 };
 
