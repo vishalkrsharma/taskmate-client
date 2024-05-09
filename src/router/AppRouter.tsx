@@ -13,25 +13,25 @@ export const AppRouter = () => {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route
-            index
+            path='dashboard'
             element={<Main />}
           />
           <Route
-            path='new-task'
+            path='dashboard/tasks/new-task'
             element={<TaskForm />}
           />
           <Route
-            path=':taskId'
+            path='dashboard/tasks/:taskId'
             element={<Task />}
-          ></Route>
+          />
           <Route
-            path=':taskId/edit'
+            path='dashboard/tasks/:taskId/edit'
             element={<TaskForm />}
           />
         </Route>
         <Route element={<AnonmyousRoutes />}>
           <Route
-            path='auth'
+            path='/'
             element={<Auth />}
           />
         </Route>
