@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import axios from '@/lib/axios';
+import Home from '@/pages/home';
 import { stringToDate } from '@/lib/utils';
 import { TaskFilterType, TaskType } from '@/types';
-import { useAuthStore } from '@/hooks/useAuthStore';
-import Home from '@/pages/Home';
+import { useAuthStore } from '@/hooks/use-auth-store';
 
 const PrivateRoutes = () => {
   const _id = useAuthStore((state) => state._id);
@@ -24,7 +24,6 @@ const PrivateRoutes = () => {
   const getTasks = async (filter: TaskFilterType) => {
     const { data } = await axios.get('/api/task/get-tasks', {
       params: {
-        userId: _id,
         ...filter,
       },
     });
@@ -32,11 +31,7 @@ const PrivateRoutes = () => {
   };
 
   const getTaskDays = async () => {
-    const { data } = await axios.get('/api/task/get-task-dates', {
-      params: {
-        userId: _id,
-      },
-    });
+    const { data } = await axios.get('/api/task/get-task-dates');
 
     setTaskDates(stringToDate(data.taskDates));
   };

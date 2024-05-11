@@ -6,10 +6,9 @@ import axios from '@/lib/axios';
 import { cn } from '@/lib/utils';
 import { TaskType } from '@/types';
 import { CalendarIcon } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
-import { useAuthStore } from '@/hooks/useAuthStore';
 import { Calendar } from '@/components/ui/calendar';
-import { useToast } from '@/components/ui/use-toast';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
   AlertDialog,
@@ -27,16 +26,12 @@ const Task = () => {
   const navigate = useNavigate();
   const [task, setTask] = useState<TaskType>();
   const { toast } = useToast();
-  const _id = useAuthStore((state) => state._id);
   const params = useParams();
 
   useEffect(() => {
     (async function () {
       const { data } = await axios.get('/api/task/get-task/', {
-        params: {
-          taskId: params.taskId,
-          userId: _id,
-        },
+        params: { taskId: params.taskId },
       });
       setTask(data.task);
     })();
@@ -44,16 +39,16 @@ const Task = () => {
 
   const handleDelete = async () => {
     try {
-      const { data } = await axios.delete('/api/task/delete-task', { params: { userId: _id, taskId: task?._id } });
+      const { data } = await axios.delete('/api/task/delete-task', { params: { taskId: task?._id } });
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
     } catch (error: any) {
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
     } finally {
       navigate('/');

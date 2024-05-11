@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import axios from '@/lib/axios';
+import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useAuthStore } from '@/hooks/useAuthStore';
-import { useToast } from '@/components/ui/use-toast';
+import { useAuthStore } from '@/hooks/use-auth-store';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
 const formSchema = z.object({
@@ -42,14 +42,14 @@ const Login = () => {
       setUser(user.username, user._id);
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
       navigate('/');
     } catch (error: any) {
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
     } finally {
       form.reset();

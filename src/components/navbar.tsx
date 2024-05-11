@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
 
-import { ThemeToggle } from '@/components/ThemeToggle';
-import Profile from '@/components/Profile';
+import { ThemeToggle } from '@/components/theme-toggle';
+import ProfileDropdown from '@/components/dropdown/profile-dropdown';
+import { useDialogStore } from '@/hooks/use-dialog-store';
 
 const Navbar = () => {
+  const state = useDialogStore((state) => state);
+
+  console.log(state);
   return (
     <div className='flex justify-between items-center p-4 border-b h-[60px]'>
       <Link to='/'>
@@ -11,7 +15,7 @@ const Navbar = () => {
       </Link>
       <div className='flex item-center justify-center gap-4'>
         <ThemeToggle />
-        <Profile />
+        <ProfileDropdown />
       </div>
     </div>
   );

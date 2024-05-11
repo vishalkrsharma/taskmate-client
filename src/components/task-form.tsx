@@ -7,13 +7,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import axios from '@/lib/axios';
 import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
-import { useAuthStore } from '@/hooks/useAuthStore';
-import { useToast } from '@/components/ui/use-toast';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { TaskFilterType } from '@/types';
@@ -38,7 +37,6 @@ const TaskForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const task = location.state ? location.state.task : null;
-  const _id = useAuthStore((state) => state._id);
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
@@ -58,16 +56,16 @@ const TaskForm = () => {
   const onSubmit = async (values: FormValues) => {
     try {
       if (task) {
-        const { data } = await axios.put('/api/task/edit-task', { userId: _id, ...values, taskId: task._id });
+        const { data } = await axios.put('/api/task/edit-task', { ...values, taskId: task._id });
         toast({
           description: data.message,
-          duration: 3000,
+          duration: 2000,
         });
       } else {
-        const { data } = await axios.post('/api/task/new-task', { userId: _id, ...values });
+        const { data } = await axios.post('/api/task/new-task', values);
         toast({
           description: data.message,
-          duration: 3000,
+          duration: 2000,
         });
       }
 
@@ -76,7 +74,7 @@ const TaskForm = () => {
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
     } finally {
       form.reset();
@@ -122,7 +120,6 @@ const TaskForm = () => {
                     {...field}
                   />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
@@ -177,6 +174,7 @@ const TaskForm = () => {
                   <FormLabel>Archived</FormLabel>
                   <FormDescription>This task will not appear in the task list.</FormDescription>
                 </div>
+                <FormMessage />
               </FormItem>
             )}
           />

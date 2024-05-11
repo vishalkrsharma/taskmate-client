@@ -1,14 +1,13 @@
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
-import { Dispatch, SetStateAction } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import axios from '@/lib/axios';
+import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useAuthStore } from '@/hooks/useAuthStore';
-import { useToast } from '@/components/ui/use-toast';
-import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { useDialogStore } from '@/hooks/use-dialog-store';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 const formSchema = z.object({
@@ -19,9 +18,9 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const ChangePassword = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatch<SetStateAction<boolean>> }) => {
+const ChangePasswordDialog = () => {
   const { toast } = useToast();
-  const _id = useAuthStore((state) => state._id);
+  const { isOpen, onClose, type } = useDialogStore();
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,29 +29,34 @@ const ChangePassword = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
   });
 
   const isLoading = form.formState.isSubmitting;
+  const isDialogOpen = isOpen && type === 'changePassword';
+
+  const handleClose = () => {
+    form.reset();
+    onClose();
+  };
 
   const onSubmit = async (values: FormValues) => {
     try {
-      const { data } = await axios.patch('/api/user/change-password', { userId: _id, ...values });
+      const { data } = await axios.patch('/api/user/change-password', values);
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
+      handleClose();
     } catch (error: any) {
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
-    } finally {
-      form.reset();
-      setIsOpen(false);
     }
   };
+
   return (
     <Dialog
-      open={open}
-      onOpenChange={setIsOpen}
+      open={isDialogOpen}
+      onOpenChange={handleClose}
     >
       <DialogContent>
         <DialogHeader>
@@ -77,6 +81,7 @@ const ChangePassword = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -96,4 +101,4 @@ const ChangePassword = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
   );
 };
 
-export default ChangePassword;
+export default ChangePasswordDialog;
