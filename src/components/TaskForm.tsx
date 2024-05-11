@@ -38,7 +38,6 @@ const TaskForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const task = location.state ? location.state.task : null;
-  const _id = useAuthStore((state) => state._id);
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
@@ -122,7 +121,6 @@ const TaskForm = () => {
                     {...field}
                   />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
@@ -177,6 +175,7 @@ const TaskForm = () => {
                   <FormLabel>Archived</FormLabel>
                   <FormDescription>This task will not appear in the task list.</FormDescription>
                 </div>
+                <FormMessage />
               </FormItem>
             )}
           />
