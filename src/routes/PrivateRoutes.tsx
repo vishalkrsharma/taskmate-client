@@ -24,7 +24,6 @@ const PrivateRoutes = () => {
   const getTasks = async (filter: TaskFilterType) => {
     const { data } = await axios.get('/api/task/get-tasks', {
       params: {
-        userId: _id,
         ...filter,
       },
     });
@@ -32,11 +31,7 @@ const PrivateRoutes = () => {
   };
 
   const getTaskDays = async () => {
-    const { data } = await axios.get('/api/task/get-task-dates', {
-      params: {
-        userId: _id,
-      },
-    });
+    const { data } = await axios.get('/api/task/get-task-dates');
 
     setTaskDates(stringToDate(data.taskDates));
   };

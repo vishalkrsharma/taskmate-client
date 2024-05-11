@@ -36,12 +36,12 @@ const ChangeUsername = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
 
   const onSubmit = async (values: FormValues) => {
     try {
-      const { data } = await axios.patch('/api/user/change-username', { userId: _id, ...values });
+      const { data } = await axios.patch('/api/user/change-username', values);
       const { user } = data;
       setUsername(user.username);
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
       form.reset();
       setIsOpen(false);
@@ -49,7 +49,7 @@ const ChangeUsername = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
     }
   };

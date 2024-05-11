@@ -33,16 +33,16 @@ const ChangePassword = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
 
   const onSubmit = async (values: FormValues) => {
     try {
-      const { data } = await axios.patch('/api/user/change-password', { userId: _id, ...values });
+      const { data } = await axios.patch('/api/user/change-password', values);
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
     } catch (error: any) {
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
     } finally {
       form.reset();

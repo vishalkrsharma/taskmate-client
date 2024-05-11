@@ -58,16 +58,16 @@ const TaskForm = () => {
   const onSubmit = async (values: FormValues) => {
     try {
       if (task) {
-        const { data } = await axios.put('/api/task/edit-task', { userId: _id, ...values, taskId: task._id });
+        const { data } = await axios.put('/api/task/edit-task', { ...values, taskId: task._id });
         toast({
           description: data.message,
-          duration: 3000,
+          duration: 2000,
         });
       } else {
-        const { data } = await axios.post('/api/task/new-task', { userId: _id, ...values });
+        const { data } = await axios.post('/api/task/new-task', values);
         toast({
           description: data.message,
-          duration: 3000,
+          duration: 2000,
         });
       }
 
@@ -76,7 +76,7 @@ const TaskForm = () => {
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
     } finally {
       form.reset();

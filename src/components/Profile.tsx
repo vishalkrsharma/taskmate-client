@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useCookies } from 'react-cookie';
 
 import { useAuthStore } from '@/hooks/useAuthStore';
 import Avatar from '@/components/ui/avatar';
@@ -26,6 +25,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import axios from '@/lib/axios';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const username = useAuthStore((state) => state.username);
@@ -35,15 +36,29 @@ const Profile = () => {
   const [openChangePassword, setIsOpenChangePassword] = useState(false);
   const setUser = useAuthStore((state) => state.setUser);
   const { toast } = useToast();
-  const [_cookies, _setCookie, removeCookie] = useCookies(['token']);
+  const navigate = useNavigate();
 
-  const logout = () => {
-    setUser(null, null);
-    removeCookie('token');
-    toast({
-      description: 'User logged out',
-      duration: 3000,
-    });
+  const logout = async () => {
+    try {
+      console.log(import.meta.env.VITE_SERVER_URL + '/api/auth/logout');
+      const res = await axios.post('/api/auth/logout');
+      const { success, status } = res.data;
+
+      if (success === true && status === 200) {
+        setUser(null, null);
+        navigate('/');
+        toast({
+          description: 'User logged out',
+          duration: 2000,
+        });
+      }
+    } catch (error: any) {
+      const { data } = error.response;
+      toast({
+        description: data.message,
+        duration: 2000,
+      });
+    }
   };
   return (
     <>

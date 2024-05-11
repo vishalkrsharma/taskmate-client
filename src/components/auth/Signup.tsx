@@ -38,14 +38,14 @@ const Signup = () => {
       setUser(user.username, user._id);
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
       navigate('/');
     } catch (error: any) {
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
     } finally {
       form.reset();

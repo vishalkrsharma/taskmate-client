@@ -33,10 +33,7 @@ const Task = () => {
   useEffect(() => {
     (async function () {
       const { data } = await axios.get('/api/task/get-task/', {
-        params: {
-          taskId: params.taskId,
-          userId: _id,
-        },
+        params: { taskId: params.taskId },
       });
       setTask(data.task);
     })();
@@ -44,16 +41,16 @@ const Task = () => {
 
   const handleDelete = async () => {
     try {
-      const { data } = await axios.delete('/api/task/delete-task', { params: { userId: _id, taskId: task?._id } });
+      const { data } = await axios.delete('/api/task/delete-task', { params: { taskId: task?._id } });
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
     } catch (error: any) {
       const { data } = error.response;
       toast({
         description: data.message,
-        duration: 3000,
+        duration: 2000,
       });
     } finally {
       navigate('/');
