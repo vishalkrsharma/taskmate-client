@@ -1,5 +1,5 @@
-import Login from '@/components/auth/Login';
-import Signup from '@/components/auth/Signup';
+import Login from '@/components/auth/login';
+import Signup from '@/components/auth/signup';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const Auth = () => {

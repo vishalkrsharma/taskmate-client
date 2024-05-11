@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import axios from '@/lib/axios';
-import Home from '@/pages/Home';
+import Home from '@/pages/home';
 import { stringToDate } from '@/lib/utils';
 import { TaskFilterType, TaskType } from '@/types';
-import { useAuthStore } from '@/hooks/useAuthStore';
+import { useAuthStore } from '@/hooks/use-auth-store';
 
 const PrivateRoutes = () => {
   const _id = useAuthStore((state) => state._id);

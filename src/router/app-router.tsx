@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
 
-import Auth from '@/pages/Auth';
-import Task from '@/components/Task';
-import Main from '@/components/Main';
-import TaskForm from '@/components/TaskForm';
-import PrivateRoutes from '@/routes/PrivateRoutes';
-import AnonmyousRoutes from '@/routes/AnonmyousRoutes';
+import Auth from '@/pages/auth';
+import Task from '@/components/task';
+import Main from '@/components/main';
+import TaskForm from '@/components/task-form';
+import PrivateRoutes from '@/routes/private-routes';
+import AnonmyousRoutes from '@/routes/anonmyous-routes';
 
 export const AppRouter = () => {
   return (

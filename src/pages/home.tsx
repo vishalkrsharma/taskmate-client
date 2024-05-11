@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import { Dispatch, SetStateAction } from 'react';
 
-import Navbar from '@/components/Navbar';
-import Sidebar from '@/components/Sidebar';
-import Taskbar from '@/components/Taskbar';
+import Navbar from '@/components/navbar';
+import Sidebar from '@/components/sidebar';
+import Taskbar from '@/components/taskbar';
 import { TaskFilterType, TaskType } from '@/types';
 
 const Home = ({

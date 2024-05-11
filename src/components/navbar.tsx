@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-import { ThemeToggle } from '@/components/ThemeToggle';
-import Profile from '@/components/Profile';
+import { ThemeToggle } from '@/components/theme-toggle';
+import Profile from '@/components/profile';
 
 const Navbar = () => {
   return (

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import { AppRouter } from '@/router/AppRouter';
-import { useAuthStore } from '@/hooks/useAuthStore';
+import { AppRouter } from '@/router/app-router';
+import { useAuthStore } from '@/hooks/use-auth-store';
 
 const App = () => {
   const setUser = useAuthStore((state) => state.setUser);

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { TaskType } from '@/types';
 import { Button } from '@/components/ui/button';
-import TaskbarItem from '@/components/TaskbarItem';
+import TaskbarItem from '@/components/taskbar-item';
 import { Separator } from '@/components/ui/separator';
 
 const Taskbar = ({ tasks }: { tasks: TaskType[] }) => {

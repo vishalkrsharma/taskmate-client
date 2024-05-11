@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from '@/lib/axios';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useAuthStore } from '@/hooks/useAuthStore';
+import { useAuthStore } from '@/hooks/use-auth-store';
 import { useToast } from '@/components/ui/use-toast';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
