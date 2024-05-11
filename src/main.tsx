@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/providers/theme-provider';
 
 import App from '@/app';
 import '@/index.css';
+import DialogProvider from '@/providers/dialog-provider';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     >
       <App />
       <Toaster />
+      <DialogProvider />
     </ThemeProvider>
   </BrowserRouter>
 );

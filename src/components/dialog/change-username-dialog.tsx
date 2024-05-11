@@ -1,12 +1,12 @@
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
-import { Dispatch, SetStateAction } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import axios from '@/lib/axios';
 import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useDialogStore } from '@/hooks/use-dialog-store';
 import { useAuthStore } from '@/hooks/use-auth-store';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -19,8 +19,9 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const ChangeUsername = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatch<SetStateAction<boolean>> }) => {
+const ChangeUsernameDialog = () => {
   const { toast } = useToast();
+  const { isOpen, onClose, type } = useDialogStore();
   const setUsername = useAuthStore((state) => state.setUsername);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -30,6 +31,12 @@ const ChangeUsername = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
   });
 
   const isLoading = form.formState.isSubmitting;
+  const isDialogOpen = isOpen && type === 'changeUsername';
+
+  const handleClose = () => {
+    form.reset();
+    onClose();
+  };
 
   const onSubmit = async (values: FormValues) => {
     try {
@@ -40,8 +47,7 @@ const ChangeUsername = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
         description: data.message,
         duration: 2000,
       });
-      form.reset();
-      setIsOpen(false);
+      handleClose();
     } catch (error: any) {
       const { data } = error.response;
       toast({
@@ -53,8 +59,8 @@ const ChangeUsername = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
 
   return (
     <Dialog
-      open={open}
-      onOpenChange={setIsOpen}
+      open={isDialogOpen}
+      onOpenChange={handleClose}
     >
       <DialogContent>
         <DialogHeader>
@@ -99,4 +105,4 @@ const ChangeUsername = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatc
   );
 };
 
-export default ChangeUsername;
+export default ChangeUsernameDialog;
