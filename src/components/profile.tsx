@@ -2,10 +2,10 @@ import { useState } from 'react';
 
 import axios from '@/lib/axios';
 import Avatar from '@/components/ui/avatar';
+import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/hooks/use-auth-store';
-import { useToast } from '@/components/ui/use-toast';
 import ChangeUsername from '@/components/change-username';
 import ChangePassword from '@/components/change-password';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
