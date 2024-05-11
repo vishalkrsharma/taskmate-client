@@ -21,10 +21,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 const ChangeUsername = ({ open, setIsOpen }: { open: boolean; setIsOpen: Dispatch<SetStateAction<boolean>> }) => {
   const { toast } = useToast();
-  const { _id, setUsername } = useAuthStore((state) => ({
-    _id: state._id,
-    setUsername: state.setUsername,
-  }));
+  const setUsername = useAuthStore((state) => state.setUsername);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {

@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
-import { useAuthStore } from '@/hooks/useAuthStore';
+import axios from '@/lib/axios';
 import Avatar from '@/components/ui/avatar';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/hooks/useAuthStore';
 import { useToast } from '@/components/ui/use-toast';
 import ChangeUsername from '@/components/ChangeUsername';
 import ChangePassword from '@/components/ChangePassword';
@@ -25,8 +27,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import axios from '@/lib/axios';
-import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const username = useAuthStore((state) => state.username);

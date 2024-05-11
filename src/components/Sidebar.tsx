@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-import { Calendar } from '@/components/ui/calendar';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { TaskFilterType } from '@/types';
 import { useTheme } from './ThemeProvider';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Separator } from '@/components/ui/separator';
 
 const Sidebar = ({ filter, setFilter, taskDates }: { filter: any; setFilter: Dispatch<SetStateAction<any>>; taskDates: Date[] }) => {
   const { theme } = useTheme();

@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils';
 import { TaskType } from '@/types';
 import { CalendarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAuthStore } from '@/hooks/useAuthStore';
 import { Calendar } from '@/components/ui/calendar';
 import { useToast } from '@/components/ui/use-toast';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -27,7 +26,6 @@ const Task = () => {
   const navigate = useNavigate();
   const [task, setTask] = useState<TaskType>();
   const { toast } = useToast();
-  const _id = useAuthStore((state) => state._id);
   const params = useParams();
 
   useEffect(() => {
