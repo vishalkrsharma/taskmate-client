@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const Auth = () => {
   return (
-    <div className='flex justify-center items-center min-h-screen'>
+    <div className='flex justify-center items-center min-h-screen font-victor'>
       <Tabs
         defaultValue='login'
         className='w-[400px]'
@@ -12,13 +12,13 @@ const Auth = () => {
         <TabsList className='w-full mb-4'>
           <TabsTrigger
             value='login'
-            className='flex-1'
+            className='flex-1 font-bold'
           >
             Log in
           </TabsTrigger>
           <TabsTrigger
             value='signup'
-            className='flex-1'
+            className='flex-1 font-bold'
           >
             Sign up
           </TabsTrigger>

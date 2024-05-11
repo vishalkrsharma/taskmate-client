@@ -22,7 +22,7 @@ const Home = ({
   return (
     <div>
       <Navbar />
-      <div className='flex justify-start items-center h-[calc(100vh-60px)]'>
+      <div className='flex justify-start items-center h-[calc(100vh-60px)] font-victor'>
         <Sidebar
           filter={filter}
           setFilter={setFilter}
