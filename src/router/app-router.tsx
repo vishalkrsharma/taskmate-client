@@ -6,6 +6,7 @@ import Main from '@/components/main';
 import TaskForm from '@/components/task-form';
 import PrivateRoutes from '@/routes/private-routes';
 import AnonmyousRoutes from '@/routes/anonmyous-routes';
+import Scratchpad from '@/pages/scratchpad';
 
 export const AppRouter = () => {
   return (
@@ -27,6 +28,10 @@ export const AppRouter = () => {
           <Route
             path='dashboard/tasks/:taskId/edit'
             element={<TaskForm />}
+          />
+          <Route
+            path='scratchpad'
+            element={<Scratchpad />}
           />
         </Route>
         <Route element={<AnonmyousRoutes />}>
