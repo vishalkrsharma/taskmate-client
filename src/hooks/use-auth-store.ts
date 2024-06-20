@@ -1,14 +1,9 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-interface useAuthStore {
-  username: null | string;
-  _id: null | string;
-  setUser: (username: string | null, _id: string | null) => void;
-  setUsername: (username: string | null) => void;
-}
+import { useAuthStoreType } from '@/types';
 
-export const useAuthStore = create<useAuthStore>()(
+export const useAuthStore = create<useAuthStoreType>()(
   persist(
     (set) => ({
       username: null,
