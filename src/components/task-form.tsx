@@ -12,17 +12,17 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Textarea } from '@/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { TaskFilterType } from '@/types';
+import Tiptap from '@/components/tiptap';
 
 const formSchema = z.object({
   title: z.string().min(1, {
     message: 'Title is required.',
   }),
-  content: z.string().min(1, {
-    message: 'Content is required.',
+  description: z.string().min(1, {
+    message: 'Description is required.',
   }),
   date: z.date({
     required_error: 'Date is required.',
@@ -40,12 +40,13 @@ const TaskForm = () => {
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
+    mode: 'onChange',
     resolver: zodResolver(formSchema),
     defaultValues: task
       ? { ...task, date: new Date(task.date) }
       : {
           title: '',
-          content: '',
+          description: '',
           date: new Date(),
           isArchived: false,
         },
@@ -83,78 +84,81 @@ const TaskForm = () => {
   };
 
   return (
-    <div className='flex-1 flex-col justify-start items-start h-[calc(100vh-60px)] p-2'>
+    <div className='flex-1 flex flex-col justify-start items-start h-[calc(100vh-60px)] p-2'>
       <h1 className='text-2xl font-medium mt-1 mb-2'>{task ? 'Edit' : 'New'} Task</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='space-y-4'
+          className='space-y-4 flex flex-col flex-1 items-start w-full'
         >
-          <FormField
-            control={form.control}
-            name='title'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Title</FormLabel>
-                <FormControl>
-                  <Input
-                    disabled={isLoading}
-                    placeholder='Enter title...'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='content'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Content</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder='Add content...'
-                    className='resize-none'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='date'
-            render={({ field }) => (
-              <FormItem className='flex flex-col'>
-                <FormLabel>Date</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant={'outline'}
-                        className={cn('w-[240px] pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}
-                      >
-                        {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
-                        <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent
-                    className='w-auto p-0'
-                    align='start'
-                  >
-                    <Calendar
-                      mode='single'
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      initialFocus
+          <div className='flex gap-4'>
+            <FormField
+              control={form.control}
+              name='title'
+              render={({ field }) => (
+                <FormItem className='w-[300px]'>
+                  <FormLabel>Title</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isLoading}
+                      placeholder='Enter title...'
+                      {...field}
                     />
-                  </PopoverContent>
-                </Popover>
-                <FormDescription>Pick the date for the task.</FormDescription>
+                  </FormControl>
+                  <FormDescription>Write a title for yout task.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='date'
+              render={({ field }) => (
+                <FormItem className='flex flex-col'>
+                  <FormLabel className='mt-[6px] mb-[4px]'>Date</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={'outline'}
+                          className={cn('w-[240px] pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}
+                        >
+                          {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
+                          <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      className='w-auto p-0'
+                      align='start'
+                    >
+                      <Calendar
+                        mode='single'
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormDescription>Pick the date for the task.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <FormField
+            control={form.control}
+            name='description'
+            render={({ field }) => (
+              <FormItem className='w-full flex-1'>
+                <FormLabel>Description</FormLabel>
+                <FormControl>
+                  <Tiptap
+                    description={field.value}
+                    onChange={field.onChange}
+                  />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}

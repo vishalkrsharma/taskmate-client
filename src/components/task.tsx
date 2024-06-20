@@ -1,10 +1,10 @@
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
+import parse from 'html-react-parser';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import axios from '@/lib/axios';
 import { cn } from '@/lib/utils';
-import { TaskType } from '@/types';
 import { CalendarIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
@@ -21,6 +21,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { TaskType } from '@/types';
 
 const Task = () => {
   const navigate = useNavigate();
@@ -96,8 +97,8 @@ const Task = () => {
           <div className='opacity-50 border p-2 rounded-sm text-sm'>{task?.title}</div>
         </div>
         <div>
-          <div className='text-sm'>Content</div>
-          <div className='opacity-50 border p-2 rounded-sm text-sm'>{task?.content}</div>
+          <div className='text-sm'>Description</div>
+          <div className='opacity-50 border p-2 rounded-sm text-sm'>{parse(task?.description ?? '')}</div>
         </div>
         <div>
           <div className='text-sm'>Date</div>
