@@ -54,7 +54,7 @@ const Signup = () => {
 
   return (
     <div>
-      <h1 className='text-xl mb-4'>Sign up</h1>
+      <h1 className='text-xl mb-4 font-bold'>Sign up</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -65,7 +65,7 @@ const Signup = () => {
             name='username'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel className='font-bold'>Username</FormLabel>
                 <FormControl>
                   <Input
                     placeholder='Enter username...'
@@ -82,7 +82,7 @@ const Signup = () => {
             name='password'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className='font-bold'>Password</FormLabel>
                 <FormControl>
                   <Input
                     placeholder='Enter password...'
@@ -93,7 +93,12 @@ const Signup = () => {
               </FormItem>
             )}
           />
-          <Button type='submit'>Submit</Button>
+          <Button
+            type='submit'
+            className='font-bold'
+          >
+            Submit
+          </Button>
         </form>
       </Form>
     </div>

@@ -58,7 +58,7 @@ const Login = () => {
 
   return (
     <div>
-      <h1 className='text-xl mb-4'>Log in</h1>
+      <h1 className='text-xl mb-4 font-bold'>Log in</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -69,7 +69,7 @@ const Login = () => {
             name='username'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel className='font-bold'>Username</FormLabel>
                 <FormControl>
                   <Input
                     disabled={isLoading}
@@ -87,7 +87,7 @@ const Login = () => {
             name='password'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className='font-bold'>Password</FormLabel>
                 <FormControl>
                   <Input
                     disabled={isLoading}
@@ -102,6 +102,7 @@ const Login = () => {
           <Button
             type='submit'
             disabled={isLoading}
+            className='font-bold'
           >
             Submit
           </Button>

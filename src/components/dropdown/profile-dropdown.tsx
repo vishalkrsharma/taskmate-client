@@ -17,12 +17,12 @@ const ProfileDropdown = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className='rounded-full'>
         <Avatar />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align='end'
-        className='font-mono'
+        className='font-victor'
       >
         <DropdownMenuLabel>{username}</DropdownMenuLabel>
         <DropdownMenuSeparator />

@@ -25,7 +25,6 @@ const LogoutDialog = () => {
 
   const logout = async () => {
     try {
-      console.log(import.meta.env.VITE_SERVER_URL + '/api/auth/logout');
       const res = await axios.post('/api/auth/logout');
       const { success, status } = res.data;
 

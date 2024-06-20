@@ -11,6 +11,9 @@ module.exports = {
         '2xl': '1400px',
       },
     },
+    fontFamily: {
+      victor: ['Victor Mono', 'ui-monospace'],
+    },
     extend: {
       fontFamily: {
         'noto-sans': ['Noto Sans', 'ui-monospace'],
