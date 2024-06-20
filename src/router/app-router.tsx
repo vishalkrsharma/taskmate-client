@@ -9,7 +9,7 @@ import AnonmyousRoutes from '@/routes/anonmyous-routes';
 
 export const AppRouter = () => {
   return (
-    <div className='font-mono'>
+    <div className='font-noto-sans'>
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route
