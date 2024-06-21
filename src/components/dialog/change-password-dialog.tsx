@@ -29,7 +29,7 @@ const ChangePasswordDialog = () => {
   });
 
   const isLoading = form.formState.isSubmitting;
-  const isDialogOpen = isOpen && type === 'changePassword';
+  const isDialogOpen = isOpen && type === 'change-password';
 
   const handleClose = () => {
     form.reset();

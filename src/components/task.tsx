@@ -1,32 +1,21 @@
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import parse from 'html-react-parser';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import axios from '@/lib/axios';
 import { cn } from '@/lib/utils';
+import { TaskType } from '@/types';
 import { CalendarIcon } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { TaskType } from '@/types';
+import { useDialogStore } from '@/hooks/use-dialog-store';
 
 const Task = () => {
-  const navigate = useNavigate();
   const [task, setTask] = useState<TaskType>();
-  const { toast } = useToast();
+  const { onOpen } = useDialogStore();
   const params = useParams();
 
   useEffect(() => {
@@ -37,24 +26,6 @@ const Task = () => {
       setTask(data.task);
     })();
   }, [params]);
-
-  const handleDelete = async () => {
-    try {
-      const { data } = await axios.delete('/api/task/delete-task', { params: { taskId: task?._id } });
-      toast({
-        description: data.message,
-        duration: 2000,
-      });
-    } catch (error: any) {
-      const { data } = error.response;
-      toast({
-        description: data.message,
-        duration: 2000,
-      });
-    } finally {
-      navigate('/');
-    }
-  };
 
   return (
     <div className='flex-1 flex-col justify-start items-start h-[calc(100vh-60px)] p-2'>
@@ -72,23 +43,13 @@ const Task = () => {
               Edit
             </Link>
           </Button>
-          <AlertDialog>
-            <AlertDialogTrigger className='inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 px-4 py-2 font-semibold'>
-              Delete
-            </AlertDialogTrigger>
-            <AlertDialogContent className='font-victor'>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete your task and remove the data from our servers.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <Button
+            variant='destructive'
+            className='font-semibold'
+            onClick={() => onOpen('delete-task', { taskId: task?._id })}
+          >
+            Delete
+          </Button>
         </div>
       </div>
       <div className='space-y-4'>

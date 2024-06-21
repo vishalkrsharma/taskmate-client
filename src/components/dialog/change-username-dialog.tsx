@@ -31,7 +31,7 @@ const ChangeUsernameDialog = () => {
   });
 
   const isLoading = form.formState.isSubmitting;
-  const isDialogOpen = isOpen && type === 'changeUsername';
+  const isDialogOpen = isOpen && type === 'change-username';
 
   const handleClose = () => {
     form.reset();

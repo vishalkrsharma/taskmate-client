@@ -13,9 +13,19 @@ export type TaskFilterType = {
   isArchived?: boolean;
 };
 
-export type useAuthStoreType = {
+export type AuthStoreType = {
   username: null | string;
   _id: null | string;
   setUser: (username: string | null, _id: string | null) => void;
   setUsername: (username: string | null) => void;
+};
+
+export type DialogType = 'change-password' | 'change-username' | 'profile' | 'logout' | 'delete-task';
+
+export type DialogStoreType = {
+  type: DialogType | null;
+  data?: any;
+  isOpen: boolean;
+  onOpen: (type: DialogType, data?: any) => void;
+  onClose: () => void;
 };
