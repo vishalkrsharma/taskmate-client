@@ -5,7 +5,7 @@ import { TaskType } from '@/types';
 const TaskbarItem = ({ task }: { task: TaskType }) => {
   return (
     <Link
-      to={`dashboard/tasks/${task._id}`}
+      to={`/dashboard/tasks/${task._id}`}
       className='border rounded-sm w-full p-2'
     >
       <h2 className='text-lg font-semibold'>{task.title}</h2>

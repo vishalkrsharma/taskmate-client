@@ -1,36 +1,49 @@
 import { Outlet } from 'react-router-dom';
-import { Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
 
-import Navbar from '@/components/navbar';
+import axios from '@/lib/axios';
 import Sidebar from '@/components/sidebar';
 import Taskbar from '@/components/taskbar';
+import { stringToDate } from '@/lib/utils';
 import { TaskFilterType, TaskType } from '@/types';
 
-const Home = ({
-  filter,
-  setFilter,
-  taskDates,
-  tasks,
-  getTasks,
-}: {
-  filter: TaskFilterType;
-  setFilter: Dispatch<SetStateAction<TaskFilterType>>;
-  taskDates: Date[];
-  tasks: TaskType[];
-  getTasks: (filter: TaskFilterType) => Promise<void>;
-}) => {
+const Home = () => {
+  const [filter, setFilter] = useState({});
+  const [tasks, setTasks] = useState<TaskType[]>([]);
+  const [taskDates, setTaskDates] = useState<Date[]>([]);
+
+  useEffect(() => {
+    getTaskDays();
+  }, [tasks]);
+
+  useEffect(() => {
+    getTasks(filter);
+  }, [filter]);
+
+  const getTasks = async (filter: TaskFilterType) => {
+    const { data } = await axios.get('/api/task/get-tasks', {
+      params: {
+        ...filter,
+      },
+    });
+    setTasks(data.tasks);
+  };
+
+  const getTaskDays = async () => {
+    const { data } = await axios.get('/api/task/get-task-dates');
+
+    setTaskDates(stringToDate(data.taskDates));
+  };
+
   return (
-    <div>
-      <Navbar />
-      <div className='flex justify-start items-center h-[calc(100vh-60px)] font-noto-sans'>
-        <Sidebar
-          filter={filter}
-          setFilter={setFilter}
-          taskDates={taskDates}
-        />
-        <Taskbar tasks={tasks} />
-        <Outlet context={[getTasks, filter]} />
-      </div>
+    <div className='flex justify-start items-center h-[calc(100vh-60px)] font-noto-sans'>
+      <Sidebar
+        filter={filter}
+        setFilter={setFilter}
+        taskDates={taskDates}
+      />
+      <Taskbar tasks={tasks} />
+      <Outlet context={[getTasks, filter]} />
     </div>
   );
 };

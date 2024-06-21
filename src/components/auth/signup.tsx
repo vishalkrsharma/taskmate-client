@@ -40,7 +40,7 @@ const Signup = () => {
         description: data.message,
         duration: 2000,
       });
-      navigate('/');
+      navigate('/dashboard');
     } catch (error: any) {
       const { data } = error.response;
       toast({

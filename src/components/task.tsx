@@ -27,6 +27,8 @@ const Task = () => {
     })();
   }, [params]);
 
+  console.log(params);
+
   return (
     <div className='flex-1 flex-col justify-start items-start h-[calc(100vh-60px)] p-2'>
       <div className='flex justify-between items-center'>
@@ -37,7 +39,7 @@ const Task = () => {
             className='font-semibold'
           >
             <Link
-              to='edit'
+              to={`/dashboard/tasks/${params.taskId}/edit`}
               state={{ task }}
             >
               Edit
