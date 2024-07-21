@@ -22,7 +22,7 @@ const ProfileDropdown = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align='end'
-        className='font-victor'
+        className='font-noto-sans'
       >
         <DropdownMenuLabel>{username}</DropdownMenuLabel>
         <DropdownMenuSeparator />

@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom';
 
 import { TaskType } from '@/types';
 import { Button } from '@/components/ui/button';
-import TaskbarItem from '@/components/taskbar-item';
+import TaskbarItem from '@/components/dashboard/taskbar-item';
 import { Separator } from '@/components/ui/separator';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const Taskbar = ({ tasks }: { tasks: TaskType[] }) => {
   return (
-    <div className='w-[400px] h-[calc(100vh-60px)] border-r flex flex-col p-2 justify-start items-center overflow-scroll'>
-      <Button
-        variant='outline'
-        className='w-full p-0'
-      >
+    <ScrollArea className='w-[400px] h-[calc(100vh-60px)] border-r flex flex-col p-2 justify-start items-center overflow-scroll'>
+      <Button className='w-full'>
         <Link
           to='/dashboard/tasks/new-task'
           className='w-full h-10 flex justify-center items-center rounded-sm'
@@ -23,7 +21,7 @@ const Taskbar = ({ tasks }: { tasks: TaskType[] }) => {
       </Button>
       <Separator className='my-2' />
       <div className='flex flex-col gap-2 w-full'>
-        {tasks.length === 0 ? (
+        {!tasks ? (
           <div className='text-center'>No tasks</div>
         ) : (
           tasks.map((task) => (
@@ -34,7 +32,7 @@ const Taskbar = ({ tasks }: { tasks: TaskType[] }) => {
           ))
         )}
       </div>
-    </div>
+    </ScrollArea>
   );
 };
 

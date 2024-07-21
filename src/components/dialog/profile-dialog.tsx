@@ -29,11 +29,11 @@ const ProfileDialog = () => {
         <div className='space-y-4'>
           <div className='flex justify-between items-center'>
             Change Username
-            <Button onClick={() => onOpen('changeUsername')}>Change</Button>
+            <Button onClick={() => onOpen('change-username')}>Change</Button>
           </div>
           <div className='flex justify-between items-center'>
             Change Password
-            <Button onClick={() => onOpen('changePassword')}>Change</Button>
+            <Button onClick={() => onOpen('change-password')}>Change</Button>
           </div>
         </div>
       </DialogContent>

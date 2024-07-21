@@ -1,17 +1,11 @@
 import { create } from 'zustand';
 
-export type DialogType = 'changePassword' | 'changeUsername' | 'profile' | 'logout';
+import { DialogStoreType } from '@/types';
 
-export interface DialogStore {
-  type: DialogType | null;
-  isOpen: boolean;
-  onOpen: (type: DialogType) => void;
-  onClose: () => void;
-}
-
-export const useDialogStore = create<DialogStore>((set) => ({
+export const useDialogStore = create<DialogStoreType>((set) => ({
   type: null,
   isOpen: false,
-  onOpen: (type) => set({ isOpen: true, type }),
+  dialogData: null,
+  onOpen: (type, dialogData) => set({ isOpen: true, type, dialogData }),
   onClose: () => set({ type: null, isOpen: false }),
 }));

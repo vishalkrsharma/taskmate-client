@@ -22,7 +22,7 @@ export function ThemeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align='center'
-        className='font-victor'
+        className='font-noto-sans'
       >
         <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
