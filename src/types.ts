@@ -6,6 +6,13 @@ export type TaskType = {
   isArchived: boolean;
 };
 
+export type ScratchpadType = {
+  _id: string;
+  userId: string[];
+  title: string;
+  createdAt: Date;
+};
+
 export type TaskFilterType = {
   past?: boolean;
   today?: boolean;
@@ -20,11 +27,11 @@ export type AuthStoreType = {
   setUsername: (username: string | null) => void;
 };
 
-export type DialogType = 'change-password' | 'change-username' | 'profile' | 'logout' | 'delete-task';
+export type DialogType = 'change-password' | 'change-username' | 'profile' | 'logout' | 'delete-task' | 'new-scratchpad';
 
 export type DialogStoreType = {
   type: DialogType | null;
-  data?: any;
+  dialogData?: any;
   isOpen: boolean;
   onOpen: (type: DialogType, data?: any) => void;
   onClose: () => void;

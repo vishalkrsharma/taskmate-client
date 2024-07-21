@@ -30,7 +30,7 @@ const formSchema = z.object({
   isArchived: z.boolean(),
 });
 
-type FormValues = z.infer<typeof formSchema>;
+type FormType = z.infer<typeof formSchema>;
 
 const TaskForm = () => {
   const [getTasks, filter]: [(filter: TaskFilterType) => Promise<void>, TaskFilterType] = useOutletContext();
@@ -39,7 +39,7 @@ const TaskForm = () => {
   const task = location.state ? location.state.task : null;
   const { toast } = useToast();
 
-  const form = useForm<FormValues>({
+  const form = useForm<FormType>({
     mode: 'onChange',
     resolver: zodResolver(formSchema),
     defaultValues: task
@@ -54,7 +54,7 @@ const TaskForm = () => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async (values: FormValues) => {
+  const onSubmit = async (values: FormType) => {
     try {
       if (task) {
         const { data } = await axios.put('/api/task/edit-task', { ...values, taskId: task._id });

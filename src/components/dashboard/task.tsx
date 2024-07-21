@@ -12,22 +12,30 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useDialogStore } from '@/hooks/use-dialog-store';
+import { useToast } from '@/hooks/use-toast';
 
 const Task = () => {
-  const [task, setTask] = useState<TaskType>();
-  const { onOpen } = useDialogStore();
   const params = useParams();
+  const { toast } = useToast();
+  const { onOpen } = useDialogStore();
+  const [task, setTask] = useState<TaskType>();
 
   useEffect(() => {
     (async function () {
-      const { data } = await axios.get('/api/task/get-task/', {
-        params: { taskId: params.taskId },
-      });
-      setTask(data.task);
+      try {
+        const { data } = await axios.get('/api/task/get-task/', {
+          params: { taskId: params.taskId },
+        });
+        setTask(data.task);
+      } catch (error: any) {
+        const { data } = error.response;
+        toast({
+          description: data.message,
+          duration: 2000,
+        });
+      }
     })();
   }, [params]);
-
-  console.log(params);
 
   return (
     <div className='flex-1 flex-col justify-start items-start h-[calc(100vh-60px)] p-2'>

@@ -2,12 +2,14 @@ import { Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import axios from '@/lib/axios';
-import Sidebar from '@/components/sidebar';
-import Taskbar from '@/components/taskbar';
 import { stringToDate } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 import { TaskFilterType, TaskType } from '@/types';
+import Sidebar from '@/components/dashboard/sidebar';
+import Taskbar from '@/components/dashboard/taskbar';
 
 const Home = () => {
+  const { toast } = useToast();
   const [filter, setFilter] = useState({});
   const [tasks, setTasks] = useState<TaskType[]>([]);
   const [taskDates, setTaskDates] = useState<Date[]>([]);
@@ -21,18 +23,33 @@ const Home = () => {
   }, [filter]);
 
   const getTasks = async (filter: TaskFilterType) => {
-    const { data } = await axios.get('/api/task/get-tasks', {
-      params: {
-        ...filter,
-      },
-    });
-    setTasks(data.tasks);
+    try {
+      const { data } = await axios.get('/api/task/get-tasks', {
+        params: {
+          ...filter,
+        },
+      });
+      setTasks(data.tasks);
+    } catch (error: any) {
+      const { data } = error.response;
+      toast({
+        description: data.message,
+        duration: 2000,
+      });
+    }
   };
 
   const getTaskDays = async () => {
-    const { data } = await axios.get('/api/task/get-task-dates');
-
-    setTaskDates(stringToDate(data.taskDates));
+    try {
+      const { data } = await axios.get('/api/task/get-task-dates');
+      setTaskDates(stringToDate(data.taskDates));
+    } catch (error: any) {
+      const { data } = error.response;
+      toast({
+        description: data.message,
+        duration: 2000,
+      });
+    }
   };
 
   return (

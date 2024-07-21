@@ -19,13 +19,13 @@ const formSchema = z.object({
   }),
 });
 
-type FormValues = z.infer<typeof formSchema>;
+type FormType = z.infer<typeof formSchema>;
 
 const Login = () => {
   const navigate = useNavigate();
   const setUser = useAuthStore((state) => state.setUser);
   const { toast } = useToast();
-  const form = useForm<FormValues>({
+  const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: '',
@@ -35,7 +35,7 @@ const Login = () => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async (values: FormValues) => {
+  const onSubmit = async (values: FormType) => {
     try {
       const { data } = await axios.post('/api/auth/login', values, { withCredentials: true });
       const { user } = data;

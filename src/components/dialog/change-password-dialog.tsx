@@ -16,12 +16,12 @@ const formSchema = z.object({
   }),
 });
 
-type FormValues = z.infer<typeof formSchema>;
+type FormType = z.infer<typeof formSchema>;
 
 const ChangePasswordDialog = () => {
   const { toast } = useToast();
   const { isOpen, onClose, type } = useDialogStore();
-  const form = useForm<FormValues>({
+  const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       password: '',
@@ -36,7 +36,7 @@ const ChangePasswordDialog = () => {
     onClose();
   };
 
-  const onSubmit = async (values: FormValues) => {
+  const onSubmit = async (values: FormType) => {
     try {
       const { data } = await axios.patch('/api/user/change-password', values);
       toast({

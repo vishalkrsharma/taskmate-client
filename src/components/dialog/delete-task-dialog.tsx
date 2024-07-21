@@ -17,7 +17,7 @@ import {
 const DeleteTaskDialog = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { isOpen, onClose, type, data } = useDialogStore();
+  const { isOpen, onClose, type, dialogData } = useDialogStore();
 
   const isDialogOpen = isOpen && type === 'delete-task';
 
@@ -27,7 +27,8 @@ const DeleteTaskDialog = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete('/api/task/delete-task', { params: { taskId: data?.taskId } });
+      const { data } = await axios.delete('/api/task/delete-task', { params: { taskId: dialogData?.taskId } });
+
       toast({
         description: data.message,
         duration: 2000,
@@ -48,7 +49,7 @@ const DeleteTaskDialog = () => {
       open={isDialogOpen}
       onOpenChange={handleClose}
     >
-      <AlertDialogContent className='font-noto-sans'>
+      <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>

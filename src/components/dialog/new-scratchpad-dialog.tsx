@@ -1,4 +1,4 @@
-import * as z from 'zod';
+import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -7,31 +7,27 @@ import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useDialogStore } from '@/hooks/use-dialog-store';
-import { useAuthStore } from '@/hooks/use-auth-store';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 const formSchema = z.object({
-  username: z.string().min(4, {
-    message: 'Username must be atleast 4 characters long.',
-  }),
+  title: z.string().min(1, { message: 'Title is required.' }),
 });
 
 type FormType = z.infer<typeof formSchema>;
 
-const ChangeUsernameDialog = () => {
+const NewScratchadDialog = () => {
   const { toast } = useToast();
   const { isOpen, onClose, type } = useDialogStore();
-  const setUsername = useAuthStore((state) => state.setUsername);
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      title: '',
     },
   });
 
   const isLoading = form.formState.isSubmitting;
-  const isDialogOpen = isOpen && type === 'change-username';
+  const isDialogOpen = isOpen && type === 'new-scratchpad';
 
   const handleClose = () => {
     form.reset();
@@ -40,9 +36,8 @@ const ChangeUsernameDialog = () => {
 
   const onSubmit = async (values: FormType) => {
     try {
-      const { data } = await axios.patch('/api/user/change-username', values);
-      const { user } = data;
-      setUsername(user.username);
+      const { data } = await axios.post('/api/scratchpad/new-scratchpad', values);
+
       toast({
         description: data.message,
         duration: 2000,
@@ -64,8 +59,7 @@ const ChangeUsernameDialog = () => {
     >
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Change username</DialogTitle>
-          <DialogDescription>Enter a unique username.</DialogDescription>
+          <DialogTitle>Create a new scratchpad</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -74,14 +68,14 @@ const ChangeUsernameDialog = () => {
           >
             <FormField
               control={form.control}
-              name='username'
+              name='title'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Change username</FormLabel>
+                  <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder='Enter username...'
+                      placeholder='Enter title...'
                       {...field}
                     />
                   </FormControl>
@@ -89,9 +83,16 @@ const ChangeUsernameDialog = () => {
                 </FormItem>
               )}
             />
-            <div className='flex justify-end'>
+            <div className='flex justify-end gap-4'>
               <Button
-                className=''
+                type='button'
+                variant='outline'
+                disabled={isLoading}
+                onClick={handleClose}
+              >
+                Cancel
+              </Button>
+              <Button
                 type='submit'
                 disabled={isLoading}
               >
@@ -105,4 +106,4 @@ const ChangeUsernameDialog = () => {
   );
 };
 
-export default ChangeUsernameDialog;
+export default NewScratchadDialog;

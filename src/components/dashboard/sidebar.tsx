@@ -2,8 +2,8 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { cn } from '@/lib/utils';
 import { TaskFilterType } from '@/types';
-import { useTheme } from '../providers/theme-provider';
 import { Button } from '@/components/ui/button';
+import { useTheme } from '@/providers/theme-provider';
 import { Calendar } from '@/components/ui/calendar';
 import { Separator } from '@/components/ui/separator';
 

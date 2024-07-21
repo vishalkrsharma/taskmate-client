@@ -1,13 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 
 import Auth from '@/pages/auth';
-import Task from '@/components/task';
-import TaskForm from '@/components/task-form';
+import Task from '@/components/dashboard/task';
+import TaskForm from '@/components/dashboard/task-form';
 import PrivateRoutes from '@/routes/private-routes';
 import AnonmyousRoutes from '@/routes/anonmyous-routes';
 import Scratchpad from '@/pages/scratchpad';
 import Home from '@/pages/home';
-import Main from '@/components/main';
+import { default as MainDashboard } from '@/components/dashboard/main';
+import { default as MainScratchpad } from '@/components/scratchpad/main';
 
 export const AppRouter = () => {
   return (
@@ -20,7 +21,7 @@ export const AppRouter = () => {
           >
             <Route
               index
-              element={<Main />}
+              element={<MainDashboard />}
             />
             <Route path='tasks'>
               <Route
@@ -43,7 +44,12 @@ export const AppRouter = () => {
           <Route
             path='/scratchpad'
             element={<Scratchpad />}
-          />
+          >
+            <Route
+              index
+              element={<MainScratchpad />}
+            />
+          </Route>
         </Route>
         <Route element={<AnonmyousRoutes />}>
           <Route
