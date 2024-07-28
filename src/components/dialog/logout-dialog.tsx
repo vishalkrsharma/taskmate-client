@@ -41,6 +41,7 @@ const LogoutDialog = () => {
       toast({
         description: data.message,
         duration: 2000,
+        variant: 'destructive',
       });
     }
   };
