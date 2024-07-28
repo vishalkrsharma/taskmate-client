@@ -28,24 +28,30 @@ const Scratchpad = () => {
   // }, []);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios.get('/api/scratchpad/get-scratchpads');
-
-        setScratchpads(data.scratchpads);
-      } catch (error: any) {
-        const { data } = error.response;
-        toast({
-          description: data.message,
-          duration: 2000,
-        });
-      }
-    })();
+    getScratchPads();
   }, []);
+
+  const getScratchPads = async () => {
+    try {
+      const { data } = await axios.get('/api/scratchpad/get-scratchpads');
+
+      setScratchpads(data.scratchpads);
+    } catch (error: any) {
+      const { data } = error.response;
+      toast({
+        description: data.error,
+        duration: 2000,
+        variant: 'destructive',
+      });
+    }
+  };
 
   return (
     <div className='flex justify-start items-center h-[calc(100vh-60px)] font-noto-sans'>
-      <Sidebar scratchpads={scratchpads} />
+      <Sidebar
+        scratchpads={scratchpads}
+        getScratchPads={getScratchPads}
+      />
       <Outlet />
     </div>
   );

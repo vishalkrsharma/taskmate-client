@@ -48,8 +48,9 @@ const Login = () => {
     } catch (error: any) {
       const { data } = error.response;
       toast({
-        description: data.message,
+        description: data.error,
         duration: 2000,
+        variant: 'destructive',
       });
     } finally {
       form.reset();

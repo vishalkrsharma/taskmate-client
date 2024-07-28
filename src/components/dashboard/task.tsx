@@ -30,15 +30,16 @@ const Task = () => {
       } catch (error: any) {
         const { data } = error.response;
         toast({
-          description: data.message,
+          description: data.error,
           duration: 2000,
+          variant: 'destructive',
         });
       }
     })();
   }, [params]);
 
   return (
-    <div className='flex-1 flex-col justify-start items-start h-[calc(100vh-60px)] p-2'>
+    <div className='flex-1 flex-col justify-start items-start h-[calc(100vh-60px)] p-4'>
       <div className='flex justify-between items-center'>
         <h1 className='text-2xl font-medium'>Task details</h1>
         <div className='flex item-center justify-center gap-4'>
@@ -63,11 +64,11 @@ const Task = () => {
         </div>
       </div>
       <div className='space-y-4'>
-        <div>
+        <div className='space-y-2'>
           <div className='text-sm'>Title</div>
           <div className='opacity-50 border p-2 rounded-sm text-sm'>{task?.title}</div>
         </div>
-        <div>
+        <div className='space-y-2'>
           <div className='text-sm'>Description</div>
           <div className='opacity-50 border p-2 rounded-sm text-sm'>{parse(task?.description ?? '')}</div>
         </div>

@@ -1,35 +1,33 @@
-import * as z from 'zod';
+import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import axios from '@/lib/axios';
-import { useToast } from '@/hooks/use-toast';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { useDialogStore } from '@/hooks/use-dialog-store';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import InputTags from '@/components/ui/input-tags';
+import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
-  password: z.string().min(4, {
-    message: 'Password is must be atleast 4 characters long.',
+  memberIds: z.array(z.string().min(1, { message: 'Member is Required.' })).min(1, {
+    message: 'Atleast one member is required.',
   }),
 });
 
 type FormType = z.infer<typeof formSchema>;
 
-const ChangePasswordDialog = () => {
+const MemberDialog = () => {
   const { toast } = useToast();
   const { isOpen, onClose, type } = useDialogStore();
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      password: '',
+      memberIds: [],
     },
   });
 
-  const isLoading = form.formState.isSubmitting;
-  const isDialogOpen = isOpen && type === 'change-password';
+  const isDialogOpen = isOpen && type === 'members';
 
   const handleClose = () => {
     form.reset();
@@ -38,14 +36,8 @@ const ChangePasswordDialog = () => {
 
   const onSubmit = async (values: FormType) => {
     try {
-      const { data } = await axios.patch('/api/user/change-password', values);
-      toast({
-        description: data.message,
-        duration: 2000,
-      });
-      handleClose();
     } catch (error: any) {
-      const { data } = error.response;
+      const { data, status } = error.response;
       toast({
         description: data.error,
         duration: 2000,
@@ -61,8 +53,7 @@ const ChangePasswordDialog = () => {
     >
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Change password</DialogTitle>
-          <DialogDescription>Enter a strong password.</DialogDescription>
+          <DialogTitle>Add Members</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -71,35 +62,29 @@ const ChangePasswordDialog = () => {
           >
             <FormField
               control={form.control}
-              name='password'
+              name='memberIds'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Change password</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={isLoading}
-                      placeholder='Enter password...'
+                    <InputTags
+                      placeholder='Add Members'
                       {...field}
                     />
                   </FormControl>
+
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <div className='flex justify-end'>
-              <Button
-                className=''
-                type='submit'
-                disabled={isLoading}
-              >
-                Submit
-              </Button>
-            </div>
+            <Button type='submit'>Add</Button>
           </form>
         </Form>
+        <DialogHeader>
+          <DialogTitle>Added Members</DialogTitle>
+        </DialogHeader>
       </DialogContent>
     </Dialog>
   );
 };
 
-export default ChangePasswordDialog;
+export default MemberDialog;

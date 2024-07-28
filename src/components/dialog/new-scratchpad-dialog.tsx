@@ -18,7 +18,7 @@ type FormType = z.infer<typeof formSchema>;
 
 const NewScratchadDialog = () => {
   const { toast } = useToast();
-  const { isOpen, onClose, type } = useDialogStore();
+  const { isOpen, onClose, type, refresh } = useDialogStore();
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,6 +32,8 @@ const NewScratchadDialog = () => {
   const handleClose = () => {
     form.reset();
     onClose();
+
+    refresh && refresh();
   };
 
   const onSubmit = async (values: FormType) => {
@@ -46,8 +48,9 @@ const NewScratchadDialog = () => {
     } catch (error: any) {
       const { data } = error.response;
       toast({
-        description: data.message,
+        description: data.error,
         duration: 2000,
+        variant: 'destructive',
       });
     }
   };

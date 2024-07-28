@@ -21,7 +21,7 @@ const Taskbar = ({ tasks }: { tasks: TaskType[] }) => {
       </Button>
       <Separator className='my-2' />
       <div className='flex flex-col gap-2 w-full'>
-        {!tasks ? (
+        {tasks.length === 0 ? (
           <div className='text-center'>No tasks</div>
         ) : (
           tasks.map((task) => (
