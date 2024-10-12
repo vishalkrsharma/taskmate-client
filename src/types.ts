@@ -1,3 +1,5 @@
+export type DialogType = 'change-password' | 'change-username' | 'profile' | 'logout' | 'delete-task' | 'new-scratchpad' | 'members';
+
 export type TaskType = {
   _id: string;
   title: string;
@@ -8,8 +10,9 @@ export type TaskType = {
 
 export type ScratchpadType = {
   _id: string;
-  userId: string[];
+  userIds: string[];
   title: string;
+  content: string;
   createdAt: Date;
 };
 
@@ -27,12 +30,11 @@ export type AuthStoreType = {
   setUsername: (username: string | null) => void;
 };
 
-export type DialogType = 'change-password' | 'change-username' | 'profile' | 'logout' | 'delete-task' | 'new-scratchpad';
-
 export type DialogStoreType = {
   type: DialogType | null;
   dialogData?: any;
   isOpen: boolean;
-  onOpen: (type: DialogType, data?: any) => void;
+  onOpen: (type: DialogType, data?: any, refresh?: () => Promise<void>) => void;
   onClose: () => void;
+  refresh?: () => Promise<void> | undefined;
 };

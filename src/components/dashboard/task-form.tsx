@@ -74,8 +74,9 @@ const TaskForm = () => {
     } catch (error: any) {
       const { data } = error.response;
       toast({
-        description: data.message,
+        description: data.error,
         duration: 2000,
+        variant: 'destructive',
       });
     } finally {
       form.reset();
@@ -84,7 +85,7 @@ const TaskForm = () => {
   };
 
   return (
-    <div className='flex-1 flex flex-col justify-start items-start h-[calc(100vh-60px)] p-2'>
+    <div className='flex-1 flex flex-col justify-start items-start h-[calc(100vh-60px)] p-4'>
       <h1 className='text-2xl font-medium mt-1 mb-2'>{task ? 'Edit' : 'New'} Task</h1>
       <Form {...form}>
         <form

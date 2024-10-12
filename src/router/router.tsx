@@ -9,8 +9,9 @@ import Scratchpad from '@/pages/scratchpad';
 import Home from '@/pages/home';
 import { default as MainDashboard } from '@/components/dashboard/main';
 import { default as MainScratchpad } from '@/components/scratchpad/main';
+import ScratchpadForm from '@/components/scratchpad/scratchpad-form';
 
-export const AppRouter = () => {
+export const Router = () => {
   return (
     <div className='font-noto-sans'>
       <Routes>
@@ -48,6 +49,10 @@ export const AppRouter = () => {
             <Route
               index
               element={<MainScratchpad />}
+            />
+            <Route
+              path=':scratchpadId'
+              element={<ScratchpadForm />}
             />
           </Route>
         </Route>

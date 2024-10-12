@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { AppRouter } from '@/router/app-router';
+import { Router } from '@/router/router';
 import { useAuthStore } from '@/hooks/use-auth-store';
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
     }
   }, []);
 
-  return <AppRouter />;
+  return <Router />;
 };
 
 export default App;
