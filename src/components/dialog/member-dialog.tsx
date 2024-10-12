@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useDialogStore } from '@/hooks/use-dialog-store';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import InputTags from '@/components/ui/input-tags';
 import { useToast } from '@/hooks/use-toast';
 
@@ -35,9 +35,11 @@ const MemberDialog = () => {
   };
 
   const onSubmit = async (values: FormType) => {
+    console.log(values);
+
     try {
     } catch (error: any) {
-      const { data, status } = error.response;
+      const { data } = error.response;
       toast({
         description: data.error,
         duration: 2000,

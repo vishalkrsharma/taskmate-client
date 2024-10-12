@@ -25,7 +25,7 @@ const ScratchpadForm = () => {
         const { data } = await axios.get(`/api/scratchpad/get-scratchpad?scratchpadId=${scratchpadId}`);
         setScratchpad(data);
       } catch (error: any) {
-        const { data, status } = error.response;
+        const { data } = error.response;
         toast({
           description: data.error,
           duration: 2000,
